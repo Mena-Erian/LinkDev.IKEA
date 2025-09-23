@@ -9,8 +9,9 @@ namespace LinkDev.IKEA.DAL.Common.Entities
     internal class BaseAuditableEntity<TKey> : BaseEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        public string CreatedBy { get; set; }
+        public required string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public required string LastModifiedBy { get; set; }
+        public DateTime LastModifiedOn { get; set; }
     }
 }
