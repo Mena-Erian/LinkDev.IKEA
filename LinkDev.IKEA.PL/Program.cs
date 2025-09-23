@@ -1,3 +1,6 @@
+using LinkDev.IKEA.DAL.Persistence.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace LinkDev.IKEA.PL
 {
     public class Program
@@ -10,6 +13,33 @@ namespace LinkDev.IKEA.PL
             #region Configure Sevices
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            /// builder.Services.AddScoped<DbContextOptions<ApplicationDbContext>>();
+            /// builder.Services.AddScoped<ApplicationDbContext>();
+
+            /// builder.Services.AddScoped<ApplicationDbContext>(serviceProvieder =>
+            /// {
+            ///     // var options = serviceProvieder.GetRequiredService<DbContextOptions<ApplicationDbContext>>();
+            /// 
+            ///     var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            /// 
+            ///     optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=IKEA;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+            /// 
+            ///     return new ApplicationDbContext(optionsBuilder.Options);
+            /// });
+
+
+            builder.Services.AddDbContext<ApplicationDbContext>(optionsBuilder =>
+                {
+                    optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                } //, contextLifetime: ServiceLifetime.Scoped, optionsLifetime: ServiceLifetime.Scoped
+                );
+
+            /*
+                ServiceLifetime.Singleton // Per Session
+                ServiceLifetime.Scoped    // Per Request
+                ServiceLifetime.Transient // Per Order
+             */
             #endregion
 
             var app = builder.Build();
@@ -43,7 +73,7 @@ namespace LinkDev.IKEA.PL
                 .WithStaticAssets();
 
             #endregion
-            
+
             app.Run();
         }
     }

@@ -4,9 +4,9 @@ using System.Reflection;
 
 namespace LinkDev.IKEA.DAL.Persistence.Data
 {
-    internal class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext() : base()
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }
