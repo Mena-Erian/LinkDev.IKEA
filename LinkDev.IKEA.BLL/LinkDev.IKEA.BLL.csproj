@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LinkDev.IKEA.DAL\LinkDev.IKEA.DAL.csproj" />
   </ItemGroup>
 

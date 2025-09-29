@@ -14,7 +14,7 @@ namespace LinkDev.IKEA.DAL.Persistence.UnitOfWork
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public IDepartmentRepository? DepartmentRepository { get; set; }
+        public IDepartmentRepository DepartmentRepository { get; set; }
 
         public UnitOfWork(ApplicationDbContext dbContext) // Ask Runtime for an Instance of ApplicationDbContext Implicitly
         {
