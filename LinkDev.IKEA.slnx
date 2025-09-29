@@ -1,1 +1,5 @@
-<Solution />
+<Solution>
+  <Project Path="LinkDev.IKEA.BLL/LinkDev.IKEA.BLL.csproj" />
+  <Project Path="LinkDev.IKEA.DAL/LinkDev.IKEA.DAL.csproj" />
+  <Project Path="LinkDev.IKEA.PL/LinkDev.IKEA.PL.csproj" />
+</Solution>
