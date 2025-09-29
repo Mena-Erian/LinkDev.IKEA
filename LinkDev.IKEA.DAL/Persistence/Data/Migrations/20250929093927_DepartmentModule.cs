@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace LinkDev.IKEA.DAL.Persistence.Data.Migrations
+namespace LinkDev.IKEA.DAL.Persistance.Data.Migrations
 {
     /// <inheritdoc />
     public partial class DepartmentModule : Migration

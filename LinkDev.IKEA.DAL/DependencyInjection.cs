@@ -1,4 +1,6 @@
-﻿using LinkDev.IKEA.DAL.Persistence.Data;
+﻿using LinkDev.IKEA.DAL.Contracts;
+using LinkDev.IKEA.DAL.Persistence.Data;
+using LinkDev.IKEA.DAL.Persistence.Data.DbInitializer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +22,12 @@ namespace LinkDev.IKEA.DAL
                 optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             } //, contextLifetime: ServiceLifetime.Scoped, optionsLifetime: ServiceLifetime.Scoped
             );
+
+            services.AddScoped<IDbInitializer, DbInitializer>();
+            /// services.AddScoped<IDbInitializer, DbInitializer>((serviceProvider) =>
+            ///       new DbInitializer(serviceProvider.GetRequiredService<ApplicationDbContext>())
+            /// );
+
             return services;
         }
     }

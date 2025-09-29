@@ -1,0 +1,162 @@
+[
+  {
+    "Code": "ACC1001",
+    "Name": "Accounting",
+    "Description": "Manages financial records, reports, and compliance.",
+    "CreationData": "1995-01-15",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "FIN1002",
+    "Name": "Finance",
+    "Description": "Handles budgeting, investments, and capital management.",
+    "CreationData": "1998-05-20",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "HRM1003",
+    "Name": "Human Resources",
+    "Description": "Oversees recruitment, employee relations, and compensation.",
+    "CreationData": "1990-08-01",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "ITD1004",
+    "Name": "Information Technology",
+    "Description": "Manages all technological infrastructure and support systems.",
+    "CreationData": "2000-03-10",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "MKT1005",
+    "Name": "Marketing",
+    "Description": "Develops and executes promotional campaigns and brand strategy.",
+    "CreationData": "1997-11-25",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "SLS1006",
+    "Name": "Sales",
+    "Description": "Drives revenue by managing customer acquisition and deals.",
+    "CreationData": "1992-04-18",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "PRD1007",
+    "Name": "Production",
+    "Description": "Responsible for the manufacturing and assembly of products.",
+    "CreationData": "1985-02-28",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "RND1008",
+    "Name": "Research & Development",
+    "Description": "Innovates and designs new products or services.",
+    "CreationData": "2005-09-01",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "LGL1009",
+    "Name": "Legal",
+    "Description": "Provides legal counsel and ensures regulatory compliance.",
+    "CreationData": "1999-07-07",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "PRC1010",
+    "Name": "Procurement",
+    "Description": "Manages the acquisition of goods, services, and raw materials.",
+    "CreationData": "1994-06-12",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "LOG1011",
+    "Name": "Logistics",
+    "Description": "Coordinates transportation, warehousing, and inventory flow.",
+    "CreationData": "2001-12-03",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "QAT1012",
+    "Name": "Quality Assurance",
+    "Description": "Ensures products meet established quality standards and specifications.",
+    "CreationData": "1996-03-22",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "CSD1013",
+    "Name": "Customer Support",
+    "Description": "Handles customer inquiries, issues, and technical assistance.",
+    "CreationData": "2008-11-14",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "FAC1014",
+    "Name": "Facilities",
+    "Description": "Maintains physical office spaces and company properties.",
+    "CreationData": "1988-01-30",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "COM1015",
+    "Name": "Communications",
+    "Description": "Manages internal and external public relations and messaging.",
+    "CreationData": "2012-04-05",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "SEC1016",
+    "Name": "Security",
+    "Description": "Protects company assets, data, and personnel.",
+    "CreationData": "2004-10-29",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "TRA1017",
+    "Name": "Training & Development",
+    "Description": "Designs and delivers programs to enhance employee skills.",
+    "CreationData": "2015-02-17",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "ADM1018",
+    "Name": "Administration",
+    "Description": "Provides organizational and clerical support to management.",
+    "CreationData": "1980-07-24",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "GOV1019",
+    "Name": "Corporate Governance",
+    "Description": "Ensures adherence to internal policies and ethical standards.",
+    "CreationData": "2018-06-08",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  },
+  {
+    "Code": "SUST1020",
+    "Name": "Sustainability",
+    "Description": "Develops and manages environmental and social responsibility initiatives.",
+    "CreationData": "2020-01-01",
+    "CreatedBy": "",
+    "LastModifiedBy": ""
+  }
+]
