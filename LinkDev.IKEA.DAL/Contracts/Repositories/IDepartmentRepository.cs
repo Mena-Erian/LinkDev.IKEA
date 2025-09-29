@@ -13,10 +13,10 @@ namespace LinkDev.IKEA.DAL.Contracts.Repositories
         
         Department? Get(int id);
         
-        int Add(Department entity);
-        
-        int Update(Department entity);
-        
-        bool Delete(int id);
+        void Add(Department entity);
+
+        void Update(Department entity);
+
+        void Delete(int id);
     }
 }
