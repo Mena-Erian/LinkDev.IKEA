@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.IKEA.DAL.Common.Entities
 {
-    internal class BaseEntity<TKey> where TKey : IEquatable<TKey>
+    public class BaseEntity<TKey> where TKey : IEquatable<TKey>
     {
         public TKey Id { get; set; }
 

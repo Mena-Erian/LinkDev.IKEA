@@ -1,3 +1,4 @@
+using LinkDev.IKEA.DAL;
 using LinkDev.IKEA.DAL.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,17 +30,20 @@ namespace LinkDev.IKEA.PL
             /// });
 
 
-            builder.Services.AddDbContext<ApplicationDbContext>(optionsBuilder =>
-                {
-                    optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-                } //, contextLifetime: ServiceLifetime.Scoped, optionsLifetime: ServiceLifetime.Scoped
-                );
+            /// builder.Services.AddDbContext<ApplicationDbContext>(optionsBuilder =>
+            ///     {
+            ///         optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            ///     } //, contextLifetime: ServiceLifetime.Scoped, optionsLifetime: ServiceLifetime.Scoped
+            ///     );
 
             /*
                 ServiceLifetime.Singleton // Per Session
                 ServiceLifetime.Scoped    // Per Request
                 ServiceLifetime.Transient // Per Order
              */
+
+            builder.Services.AddPersistenceServices(builder.Configuration);
+
             #endregion
 
             var app = builder.Build();
