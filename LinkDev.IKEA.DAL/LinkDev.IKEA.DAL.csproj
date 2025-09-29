@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Common\Enums\" />
-    <Folder Include="Persistence\Repositories\" />
     <Folder Include="Persistence\UnitOfWork\" />
   </ItemGroup>
 
