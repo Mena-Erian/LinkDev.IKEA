@@ -1,6 +1,7 @@
 ﻿using LinkDev.IKEA.DAL.Contracts;
 using LinkDev.IKEA.DAL.Persistence.Data;
 using LinkDev.IKEA.DAL.Persistence.Data.DbInitializer;
+using LinkDev.IKEA.DAL.Persistence.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,8 @@ namespace LinkDev.IKEA.DAL
             /// services.AddScoped<IDbInitializer, DbInitializer>((serviceProvider) =>
             ///       new DbInitializer(serviceProvider.GetRequiredService<ApplicationDbContext>())
             /// );
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

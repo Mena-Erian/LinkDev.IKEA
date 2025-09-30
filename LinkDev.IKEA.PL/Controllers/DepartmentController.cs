@@ -1,4 +1,5 @@
 ﻿using LinkDev.IKEA.BLL.Services.Departments;
+using LinkDev.IKEA.PL.ViewModels.Departments;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkDev.IKEA.PL.Controllers
@@ -20,9 +21,18 @@ namespace LinkDev.IKEA.PL.Controllers
         }
         #endregion
 
+        [HttpGet] // GET: /Department/Index
         public IActionResult Index()
         {
-            return View();
+            var departments = _departmentService.GetDepartments();
+
+            return View(departments.Select(d => new DepartmentViewModel()
+            {
+                Id = d.Id,
+                Code = d.Code,
+                Name = d.Name,
+                CreationDate = d.UpdatedDate
+            }));
         }
     }
 }

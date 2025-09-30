@@ -1,3 +1,5 @@
+using LinkDev.IKEA.BLL;
+using LinkDev.IKEA.BLL.Services.Departments;
 using LinkDev.IKEA.DAL;
 using LinkDev.IKEA.DAL.Contracts;
 using LinkDev.IKEA.DAL.Persistence.Data;
@@ -44,9 +46,10 @@ namespace LinkDev.IKEA.PL
              */
 
             builder.Services.AddPersistenceServices(builder.Configuration);
-
+            builder.Services.AddApplicationServices(builder.Configuration);
+            //builder.Services.AddScoped<IDepartmentService, DepartmentService>();
             #endregion
-
+            
             var app = builder.Build();
          
             #region Database Initialization
@@ -78,10 +81,15 @@ namespace LinkDev.IKEA.PL
             app.MapStaticAssets();
 
 
+            /// app.MapControllerRoute(
+            ///     name: "default",
+            ///     pattern: "{controller=Home}/{action=Index}/{id?}")
+            ///     .WithStaticAssets();
+
             app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
-                .WithStaticAssets();
+               name: "default",
+               pattern: "{controller=Department}/{action=Index}/{id?}")
+               .WithStaticAssets();
 
             #endregion
 

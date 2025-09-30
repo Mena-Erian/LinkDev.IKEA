@@ -1,0 +1,76 @@
+﻿@model IEnumerable<DepartmentViewModel>
+
+@{
+	ViewData["Title"] = "Department";
+}
+
+<h1 class="mb-3">All Department</h1>
+
+@if (Model.Any())
+{
+    <div class="container">
+        <div class="table-container text-center">
+            <table class="table custom-table table-striped">
+                <thead>
+                    <tr>
+                        <th class="d-flex justify-content-center align-items-center">
+                            <div class="company-logo">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <span>@Html.DisplayNameFor(d=> d.Code)</span>
+                        </th>
+                        @* <th scope="col">@Html.DisplayNameFor(d => d.Name)</th> *@
+                        <th class="text-start" scope="col">@nameof(DepartmentViewModel.Name)</th>
+                        <th scope="colgroup">@Html.DisplayNameFor(d => d.CreationDate)</th>
+                        <th scope="colgroup">More</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach (var department in Model)
+                    {
+                    <tr>
+                        <td>
+                            <span>@department.Code</span>
+                        </td>
+                        <td class="text-start">
+                            <span class="fw-bold fs-6 text-start">@department.Name</span>
+                        </td>
+                        <td>@department.CreationDate</td>
+
+                        <td>
+                            <button type="button"
+                                    class="btn btn-link text-secondary p-0"
+                                    data-bs-toggle="popover"
+                                    data-bs-trigger="focus"
+                                    data-bs-html="true"
+                                    data-bs-content='
+                                        <div class="list-group">
+                                            <a asp-controller="Department" asp-action="Details" asp-route-id=@department.Id class="list-group-item list-group-item-action"><i class="fas fa-info-circle me-2"></i>Details</a>
+                                            <a asp-controller="Department" asp-action="Details" asp-route-id=@department.Id class="list-group-item list-group-item-action"><i class="fas fa-edit me-2"></i>Edit</a>
+                                            <a asp-controller="Department" asp-action="Details" asp-route-id=@department.Id class="list-group-item list-group-item-action text-danger"><i class="fas fa-trash me-2"></i>Delete</a>
+                                        </div>'
+                                                    >
+                                  ⋯
+                                         
+                                 </button>
+                        
+
+                                
+                             </td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+}
+else
+{
+    <div class="alert alert-primary mt-4">
+        <p>There is No Departments</p>
+    </div>
+}
