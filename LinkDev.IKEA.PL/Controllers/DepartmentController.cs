@@ -21,6 +21,7 @@ namespace LinkDev.IKEA.PL.Controllers
         }
         #endregion
 
+        #region Index
         [HttpGet] // GET: /Department/Index
         public IActionResult Index()
         {
@@ -34,5 +35,41 @@ namespace LinkDev.IKEA.PL.Controllers
                 CreationDate = d.UpdatedDate
             }));
         }
+        #endregion
+
+        #region Details
+
+        [HttpGet] // GET: /Department/Details/id
+        
+        public IActionResult Details([FromRoute] int? id)
+        {
+
+            if (!id.HasValue) return BadRequest(); //400
+
+            var department = _departmentService.GetDepartmentsById(id.Value);
+
+            if (department == null) return NotFound(); //404
+
+            var departmentDetailsViewModel = new DepartmentDetailsViewModel()
+            {
+                Id = department.Id,
+
+                Code = department.Code,
+                Name = department.Name,
+                Description = department.Description ?? string.Empty,
+                CreationDate = department.CreationDate,
+
+                CreatedBy = department.CreatedBy,
+                CreatedOn = department.CreatedOn,
+                LastModifiedBy = department.LastModifiedBy,
+                LastModifiedOn = department.LastModifiedOn,
+            };
+
+            return View(departmentDetailsViewModel);
+        }
+
+
+        #endregion
+
     }
 }
