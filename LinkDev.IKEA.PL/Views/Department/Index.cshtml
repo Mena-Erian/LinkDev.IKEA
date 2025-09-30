@@ -61,19 +61,19 @@
 										data-bs-trigger="focus"
 										data-bs-html="true"
 										data-bs-content='
-												                                        <div class="list-group">
-												                                            <a asp-controller="Department" asp-action="Details" asp-route-id=@department.Id class="list-group-item list-group-item-action"><i class="fas fa-info-circle me-2"></i>Details</a>
-												                                            <a asp-controller="Department" asp-action="Details" asp-route-id=@department.Id class="list-group-item list-group-item-action"><i class="fas fa-edit me-2"></i>Edit</a>
-												                                            <a asp-controller="Department" asp-action="Details" asp-route-id=@department.Id class="list-group-item list-group-item-action text-danger"><i class="fas fa-trash me-2"></i>Delete</a>
-												                                        </div>'
-												                                                    >
-												                                  ⋯
-												                                          <div class="list-group">
-												                                                    <a asp-controller="Department" asp-action="Details" asp-route-id=@department.Id class="list-group-item list-group-item-action"><i class="fas fa-info-circle me-2"></i>Details</a>
-												                                                    <a asp-controller="Department" asp-action="Details" asp-route-id=@department.Id class="list-group-item list-group-item-action"><i class="fas fa-edit me-2"></i>Edit</a>
-												                                                    <a asp-controller="Department" asp-action="Details" asp-route-id=@department.Id class="list-group-item list-group-item-action text-danger"><i class="fas fa-trash me-2"></i>Delete</a>
-												                                                </div>
-												                                 </button>
+														                                        <div class="list-group">
+														                                            <a href="/Department/Details/@department.Id"  class="list-group-item list-group-item-action"><i class="fas fa-info-circle me-2"></i>Details</a>
+														                                            <a href="/Department/Edit/@department.Id"     class="list-group-item list-group-item-action"><i class="fas fa-edit me-2"></i>Edit</a>
+														                                            <a href="/Department/Details/@department.Id"  class="list-group-item list-group-item-action text-danger"><i class="fas fa-trash me-2"></i>Delete</a>
+														                                        </div>'
+														                                                    >
+														                                  ⋯
+														                                          @* <div class="list-group">
+														                                                    <a asp-controller="Department" asp-action="Details" asp-route-id=@department.Id class="list-group-item list-group-item-action"><i class="fas fa-info-circle me-2"></i>Details</a>
+														                                                    <a asp-controller="Department" asp-action="Edit" asp-route-id=@department.Id class="list-group-item list-group-item-action"><i class="fas fa-edit me-2"></i>Edit</a>
+														                                                    <a asp-controller="Department" asp-action="Details" asp-route-id=@department.Id class="list-group-item list-group-item-action text-danger"><i class="fas fa-trash me-2"></i>Delete</a>
+														                                                </div> *@
+														                                 </button>
 
 
 

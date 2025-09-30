@@ -101,7 +101,7 @@ namespace LinkDev.IKEA.PL.Controllers
             }
             catch (Exception ex)
             {
-                // 1. Log Exception in Database Or External file (by SerialLog Packege)
+                // 1. Log Exception in Database Or External file (by SerialLog Package)
                 _logger.LogError(ex.Message, ex.StackTrace!.ToString());
 
                 // 2. Set Message
@@ -114,6 +114,69 @@ namespace LinkDev.IKEA.PL.Controllers
 
         #endregion
 
+        #region Update
+        [HttpGet] // GET: /Department/Edit/id?
+        public IActionResult Edit(int? id)
+        {
+            if (!id.HasValue) return BadRequest(); // 400
 
+            var department = _departmentService.GetDepartmentsById(id.Value);
+            if (department is null) return BadRequest();
+
+            var departmentViewModel = new UpdateDepartmentViewModel()
+            {
+                Id = department.Id,
+                Code = department.Code,
+                Name = department.Name,
+                Description = department.Description,
+                CreationDate = department.CreationDate,
+            };
+
+            TempData["DepartmentUpdateId"] = departmentViewModel.Id;
+
+            return View(departmentViewModel);
+        }
+
+        [HttpPost] // POST: /Department/Edit
+        public IActionResult Edit([FromRoute] int id, UpdateDepartmentViewModel model)
+        {
+
+            if ((int?)TempData["DepartmentUpdateId"] != id)
+            {
+                ModelState.AddModelError("Id", "Invalid Id");
+                return View(model); // 400
+            }
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("Id", "Invalid Id");
+                return View(model); // 400
+            }
+            string message = string.Empty;
+            try
+            {
+                var departmentToUpdate = new UpdateDepartmentDto(id, model.Name, model.Code, model.Description, model.CreationDate);
+
+                var IsUpdated = _departmentService.UpdateDepartment(departmentToUpdate) > 0;
+                if (!IsUpdated)
+                    message = $"Failed to Update {model.Name} Department";
+
+                message = $"{model.Name} Department Updated Successfully";
+            }
+            catch (Exception ex)
+            {
+                // Best Practice is make middle ware
+                // 1. Log Exception in Database Or External file (by SerialLog Packege)
+                _logger.LogError(ex.Message, ex.StackTrace!.ToString());
+
+                // 2. Set Message
+                message = "An Error Occurred, Please Try Again Later";
+            }
+
+            TempData["Message"] = message;
+            return RedirectToAction(nameof(Index));
+
+
+        }
+        #endregion
     }
 }
