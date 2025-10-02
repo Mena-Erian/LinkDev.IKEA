@@ -14,13 +14,19 @@ namespace LinkDev.IKEA.DAL.Persistence.UnitOfWork
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public IDepartmentRepository DepartmentRepository { get; set; }
+        private readonly Lazy<DepartmentRepository> _departmentRepository;
+        private readonly Lazy<EmployeeRepository> _employeeRepository;
 
         public UnitOfWork(ApplicationDbContext dbContext) // Ask Runtime for an Instance of ApplicationDbContext Implicitly
         {
-            DepartmentRepository = new DepartmentRepository(dbContext);
             _dbContext = dbContext;
+            // Lazy Initialization
+            _departmentRepository = new Lazy<DepartmentRepository>(new DepartmentRepository(_dbContext));
+            _employeeRepository = new Lazy<EmployeeRepository>(new EmployeeRepository(_dbContext));
         }
+
+        public IDepartmentRepository Departments => _departmentRepository.Value;
+        public IEmployeeRepository Employees => _employeeRepository.Value;
 
         public int Commit()
         {

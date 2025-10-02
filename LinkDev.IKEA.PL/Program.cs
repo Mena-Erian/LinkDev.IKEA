@@ -49,15 +49,15 @@ namespace LinkDev.IKEA.PL
             builder.Services.AddApplicationServices(builder.Configuration);
             //builder.Services.AddScoped<IDepartmentService, DepartmentService>();
             #endregion
-            
+
             var app = builder.Build();
-         
+
             #region Database Initialization
-            
+
             app.InitializeDatabase();
-            
+
             #endregion
-            
+
             #region Configure Http Request Pipelines
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -81,15 +81,15 @@ namespace LinkDev.IKEA.PL
             app.MapStaticAssets();
 
 
-            /// app.MapControllerRoute(
-            ///     name: "default",
-            ///     pattern: "{controller=Home}/{action=Index}/{id?}")
-            ///     .WithStaticAssets();
-
             app.MapControllerRoute(
-               name: "default",
-               pattern: "{controller=Department}/{action=Index}/{id?}")
-               .WithStaticAssets();
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}")
+                .WithStaticAssets();
+
+            /// app.MapControllerRoute(
+            ///    name: "default",
+            ///    pattern: "{controller=Department}/{action=Index}/{id?}")
+            ///    .WithStaticAssets();
 
             #endregion
 

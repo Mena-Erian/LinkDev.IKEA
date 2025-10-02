@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.IKEA.DAL.Persistence.Data.Configurations.Common
 {
-    internal class BaseAuditableEntityConfigurations<TKey, TEntity> : BaseEntityConfigurations<TKey, TEntity>
+    public class BaseAuditableEntityConfigurations<TKey, TEntity> : BaseEntityConfigurations<TKey, TEntity>
         where TKey : IEquatable<TKey>
         where TEntity : BaseAuditableEntity<TKey>
     {

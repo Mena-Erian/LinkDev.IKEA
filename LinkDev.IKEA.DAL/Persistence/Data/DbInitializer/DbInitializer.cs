@@ -1,11 +1,14 @@
 ﻿using LinkDev.IKEA.DAL.Contracts;
 using LinkDev.IKEA.DAL.Entities.Departments;
+using LinkDev.IKEA.DAL.Entities.Employees;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
 
 namespace LinkDev.IKEA.DAL.Persistence.Data.DbInitializer
@@ -37,6 +40,31 @@ namespace LinkDev.IKEA.DAL.Persistence.Data.DbInitializer
                 if (departments?.Count > 0)
                 {
                     _dbContext.Departments.AddRange(departments);
+                    _dbContext.SaveChanges();
+                }
+            }
+            if (!_dbContext.Employees.Any())
+            {
+                var options = new JsonSerializerOptions()
+                {
+                    //TypeInfoResolver = new DefaultJsonTypeInfoResolver() { }
+                    Converters = { new JsonStringEnumConverter(allowIntegerValues: false) }
+                };
+
+
+                var employeeData = File.ReadAllText("../LinkDev.IKEA.DAL/Persistence/Data/Seeds/employees.json");
+                //Deserialization => FROM Json to C# Type
+                List<Employee>? employees = JsonSerializer.Deserialize<List<Employee>>(employeeData, options);
+
+                if (employees?.Count > 0)
+                {
+                    foreach (var emp in employees)
+                    {
+                        emp.CreatedBy = "";
+                        emp.LastModifiedBy = "";
+                    }
+
+                    _dbContext.Employees.AddRange(employees);
                     _dbContext.SaveChanges();
                 }
             }

@@ -1,5 +1,5 @@
 ﻿using LinkDev.IKEA.DAL.Contracts.Repositories;
-using LinkDev.IKEA.DAL.Entities.Departments;
+using LinkDev.IKEA.DAL.Entities.Employees;
 using LinkDev.IKEA.DAL.Persistence.Data;
 using LinkDev.IKEA.DAL.Persistence.Repositories.BaseRepositories;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +11,10 @@ using System.Threading.Tasks;
 
 namespace LinkDev.IKEA.DAL.Persistence.Repositories
 {
-    public class DepartmentRepository : BaseRepository<Department, int>, IDepartmentRepository
+    public class EmployeeRepository : BaseRepository<Employee, int>, IEmployeeRepository
     {
-        public DepartmentRepository(ApplicationDbContext dbContext) : base(dbContext) { }
+        public EmployeeRepository(ApplicationDbContext dbContext) : base(dbContext) { }
+
 
     }
 }
