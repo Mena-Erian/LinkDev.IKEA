@@ -45,8 +45,7 @@ namespace LinkDev.IKEA.PL.Controllers
         #region Details
 
         [HttpGet] // GET: /Department/Details/id
-
-        public IActionResult Details([FromRoute] int? id)
+        public IActionResult Details([FromRoute] int? id, string viewName = "Details")
         {
 
             if (!id.HasValue) return BadRequest(); //400
@@ -70,7 +69,7 @@ namespace LinkDev.IKEA.PL.Controllers
                 LastModifiedOn = department.LastModifiedOn,
             };
 
-            return View(departmentDetailsViewModel);
+            return View(viewName, departmentDetailsViewModel);
         }
 
         #endregion
@@ -178,5 +177,41 @@ namespace LinkDev.IKEA.PL.Controllers
 
         }
         #endregion
+
+        #region Delete
+        // [HttpGet] //Get: /Department/Delete/id
+        // public IActionResult Delete(int? id)
+        // {
+        //     return RedirectToAction(nameof(Details), new { id, viewName = "Delete" });
+        // }
+
+        [HttpPost] //Post: /Department/Delete/id
+        public IActionResult Delete(int id)
+        {
+
+            string message = string.Empty;
+            try
+            {
+                var IsDeleted = _departmentService.DeleteDepartment(id);
+                if (!IsDeleted)
+                    message = $"Failed to Deleted Department";
+
+                message = $"Department Deleted Successfully";
+            }
+            catch (Exception ex)
+            {
+                // Best Practice is make middle ware
+                // 1. Log Exception in Database Or External file (by SerialLog Packege)
+                _logger.LogError(ex.Message, ex.StackTrace!.ToString());
+
+                // 2. Set Message
+                message = "An Error Occurred, Please Try Again Later";
+            }
+
+            TempData["Message"] = message;
+            return RedirectToAction(nameof(Index));
+        }
+        #endregion
+
     }
 }
