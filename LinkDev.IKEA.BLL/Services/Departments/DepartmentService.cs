@@ -26,13 +26,13 @@ namespace LinkDev.IKEA.BLL.Services.Departments
                 LastModifiedBy = ""
             };
 
-            _unitOfWork.DepartmentRepository.Add(departmentToCreate);
+            _unitOfWork.Departments.Add(departmentToCreate);
             return _unitOfWork.Commit();
         }
 
         public IEnumerable<DepartmentResponseDto> GetDepartments()
         {
-            var departments = _unitOfWork.DepartmentRepository.GetAll();
+            var departments = _unitOfWork.Departments.GetAll();
 
             foreach (var department in departments)
                 yield return new DepartmentResponseDto(department.Id, department.Code, department.Name, department.LastModifiedOn);
@@ -40,7 +40,7 @@ namespace LinkDev.IKEA.BLL.Services.Departments
 
         public DepartmentDetailsDto? GetDepartmentsById(int departmentId)
         {
-            var department = _unitOfWork.DepartmentRepository.Get(departmentId);
+            var department = _unitOfWork.Departments.Get(departmentId);
 
             if (department is null) return null;
 
@@ -60,13 +60,13 @@ namespace LinkDev.IKEA.BLL.Services.Departments
                 LastModifiedBy = ""
             };
 
-            _unitOfWork.DepartmentRepository.Update(departmentUpdated);
+            _unitOfWork.Departments.Update(departmentUpdated);
             return _unitOfWork.Commit();
         }
         
         public bool DeleteDepartment(int departmentId)
         {
-            _unitOfWork.DepartmentRepository.Delete(departmentId);
+            _unitOfWork.Departments.Delete(departmentId);
             return _unitOfWork.Commit() > 0;
         }
     }

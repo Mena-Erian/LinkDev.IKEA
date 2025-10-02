@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.IKEA.DAL.Persistence.Data.Configurations.Departments
 {
-    internal class DepartmentConfigurations : BaseAuditableEntityConfigurations<int, Department>
+    public class DepartmentConfigurations : BaseAuditableEntityConfigurations<int, Department>
     {
         public override void Configure(EntityTypeBuilder<Department> builder)
         {
