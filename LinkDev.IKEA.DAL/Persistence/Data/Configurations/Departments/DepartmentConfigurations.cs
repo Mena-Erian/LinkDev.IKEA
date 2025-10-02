@@ -26,7 +26,7 @@ namespace LinkDev.IKEA.DAL.Persistence.Data.Configurations.Departments
             //Manage Relationship
             // one  Department TO  Manager    One
             builder.HasOne(d => d.Manager)
-                   .WithOne(d => d.Department)
+                   .WithOne(d => d.DepartmentMng)
                    .HasForeignKey<Department>(d=> d.ManagerId)
                    .OnDelete(DeleteBehavior.SetNull);
                    ;

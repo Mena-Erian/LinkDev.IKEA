@@ -32,11 +32,14 @@ namespace LinkDev.IKEA.DAL.Persistence.Data.Configurations.Employees
                     empType => Enum.Parse<EmployeeType>(empType)
                 );
 
+            // Work
             // One Department TO Employees Many
+
             builder.HasOne(e => e.Department)
                    .WithMany(d => d.Employees)
-                   .HasForeignKey(d => d.DepartmentId)
+                   .HasForeignKey(e => e.DepartmentId)
                    .OnDelete(DeleteBehavior.SetNull);
+            ;
         }
     }
 }

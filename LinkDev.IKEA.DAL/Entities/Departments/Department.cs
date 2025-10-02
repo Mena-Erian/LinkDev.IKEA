@@ -15,9 +15,11 @@ namespace LinkDev.IKEA.DAL.Entities.Departments
         public string? Description { get; set; }
         public DateOnly CreationDate { get; set; }
 
+        //Manager Relationship
         public int? ManagerId { get; set; }
         public virtual Employee? Manager { get; set; }
 
+        //Work Relationship
         public ICollection<Employee> Employees { get; set; } = new HashSet<Employee>();
     }
 }
