@@ -1,0 +1,425 @@
+﻿@model DepartmentDetailsViewModel
+@{
+	ViewData["Title"] = "Details";
+	// bool IsEditMode = true;
+	string CreatedByTemp = Model.CreatedBy.Split(" ").Aggregate((fName, lName) =>
+	{
+		var result = string.Empty;
+		if (fName.Length > 0) result += fName[0];
+		if (lName.Length > 0) result += lName[0];
+		return result;
+	});
+	string lastModifiedTemp = Model.LastModifiedBy.Split(" ").Aggregate((fName, lName) =>
+	{
+		var result = string.Empty;
+		if (fName.Length > 0) result += fName[0];
+		if (lName.Length > 0) result += lName[0];
+		return result;
+	});
+}
+<!-- Breadcrumb Navigation -->
+@* <div class="container pt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white rounded-pill shadow-sm px-4 py-2 animate__animated animate__fadeInDown">
+            <li class="breadcrumb-item">
+                <a href="#" class="text-decoration-none"><i class="fas fa-home me-1"></i>Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#" class="text-decoration-none">Departments</a>
+            </li>
+            <li class="breadcrumb-item active">Details</li>
+        </ol>
+    </nav>
+</div> *@
+
+<div class="container my-4">
+	<div class="row">
+		<div class="col-12">
+			<!-- Main Card -->
+			<div class="card border-0 shadow-lg rounded-4 overflow-hidden animate__animated animate__fadeInUp">
+				<!-- Header with gradient background -->
+				<div class="card-header text-white py-4 px-5"
+					 style="
+                                        background: linear-gradient(
+                                            135deg,
+                                            #667eea 0%,
+                                            #764ba2 100%
+                                        );
+                                    ">
+					<div class="row align-items-center">
+						<div class="col-md-6">
+							<div class="d-flex align-items-center">
+								<div class="bg-white bg-opacity-25 rounded-circle p-3 me-3">
+									<i class="fas fa-building fs-3"></i>
+								</div>
+								<div>
+									<h3 class="mb-0 fw-bold">
+										Information Technology
+									</h3>
+									<p class="mb-0 opacity-75">
+										<i class="fas fa-tag me-2"></i>@Model.Code
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 text-md-end mt-3 mt-md-0">
+							<div class="btn-group" role="group">
+								<button type="button"
+										class="btn btn-light btn-sm me-3 rounded px-4 py-2">
+									<i class="fas fa-edit me-2"></i>Edit
+								</button>
+
+								<button type="button"
+										class="btn btn-danger btn-sm rounded px-2 py-2">
+									<i class="fas fa-trash me-2"></i>Delete
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card-body p-5">
+					<div class="row g-4">
+						<!-- Left Column - Basic Information -->
+						<div class="col-lg-7">
+							<div class="mb-4">
+								<h5 class="text-primary fw-bold mb-3 pb-2 border-bottom border-primary border-3">
+									<i class="fas fa-info-circle me-2"></i>Basic Information
+								</h5>
+							</div>
+
+							<!-- ID Badge -->
+							<div class="card border-0 bg-light mb-3 shadow-sm">
+								<div class="card-body p-3">
+									<div class="d-flex align-items-center">
+										<div class="bg-primary bg-opacity-10 rounded p-2 me-3">
+											<i class="fas fa-hashtag text-primary"></i>
+										</div>
+										<div>
+											<label class="text-muted d-block my-0 fw-semibold" asp-for="Id" for="Id">DEPARTMENT ID</label>
+											<input class="form-control-plaintext  fw-bold my-0 py-1 focus-ring-info rounded-2"
+												   asp-for="Id" id="Id" name="Id" type="text"  placeholder="Enter ID" disabled />
+
+											@* <small class="text-muted d-block mb-1 fw-semibold">
+												DEPARTMENT ID
+											</small>
+											<h6 class="mb-0 fw-bold text-dark">
+												@Model.Id
+											</h6> *@
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Name -->
+							<div class="card border-0 bg-light mb-3 shadow-sm">
+								<div class="card-body p-3">
+									<div class="d-flex align-items-center">
+										<div class="bg-success bg-opacity-10 rounded p-2 me-3">
+											<i class="fas fa-building text-success"></i>
+										</div>
+										<div>
+
+											<label class="text-muted d-block my-0 fw-semibold" asp-for="Name" for="Name">DEPARTMENT Name</label>
+											<input class="form-control-plaintext  fw-bold my-0 py-1 focus-ring-info rounded-2"
+												   asp-for="Name" id="Name" name="Name" type="text" placeholder="Enter Name" disabled />
+											@* <small class="text-muted d-block mb-1 fw-semibold">
+												DEPARTMENT
+												NAME
+											</small>
+											<h6 class="mb-0 fw-bold text-dark">
+												@Model.Name
+											</h6> *@
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Code -->
+							<div class="card border-0 bg-light mb-3 shadow-sm">
+								<div class="card-body p-3">
+									<div class="d-flex align-items-center">
+										<div class="bg-warning bg-opacity-10 rounded p-2 me-3">
+											<i class="fas fa-barcode text-warning"></i>
+										</div>
+										<div>
+											<label class="text-muted d-block my-0 fw-semibold" asp-for="Code" for="Code">DEPARTMENT Code</label>
+											<input class="form-control-plaintext  fw-bold my-0 py-1 focus-ring-info rounded-2"
+												   asp-for="Code" id="Code" name="Code" type="text"  placeholder="Enter Code" disabled />
+
+											@* <small class="text-muted d-block mb-1 fw-semibold">
+												DEPARTMENT
+												CODE
+											</small>
+											<h6 class="mb-0 fw-bold text-dark">
+												@Model.Code
+											</h6> *@
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Description -->
+							<div class="card border-0 bg-light mb-3 shadow-sm">
+								<div class="card-body p-3">
+									<div class="d-flex">
+										<div class="bg-info bg-opacity-10 rounded p-2 me-3 align-self-start">
+											<i class="fas fa-align-left text-info"></i>
+										</div>
+										<div class="flex-grow-1">
+											<label class="text-muted d-block my-0 fw-semibold" asp-for="Description" for="Description">DEPARTMENT Description</label>
+											<input class="form-control-plaintext  fw-bold my-0 py-1 focus-ring-info rounded-2"
+												   asp-for="Description" id="Description" name="Description" type="text"  placeholder="Enter Description" disabled />
+
+											@*<small class="text-muted d-block mb-1 fw-semibold">DESCRIPTION</small>
+											<p class="mb-0 text-dark">
+												@Model.Description
+											</p>*@
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Creation Date -->
+							<div class="card border-0 bg-light mb-3 shadow-sm">
+								<div class="card-body p-3">
+									<div class="d-flex align-items-center">
+										<div class="bg-danger bg-opacity-10 rounded p-2 me-3">
+											<i class="fas fa-calendar-plus text-danger"></i>
+										</div>
+										<div>
+											<label class="text-muted d-block my-0 fw-semibold" asp-for="CreationDate" for="CreationDate">DEPARTMENT Creation Date</label>
+											<input class="form-control-plaintext  fw-bold my-0 py-1 focus-ring-info rounded-2"
+												   asp-for="CreationDate" id="CreationDate" name="CreationDate" type="text"  placeholder="Enter Creation Date" disabled />
+
+											@*<small class="text-muted d-block mb-1 fw-semibold">
+												CREATION
+												DATE
+											</small>
+											<h6 class="mb-0 fw-bold text-dark">
+												@* January 15, 2024 
+											@Model.CreationDate
+											</h6>*@
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Right Column - Audit Trail -->
+						<div class="col-lg-5">
+							<div class="mb-4">
+								<h5 class="text-primary fw-bold mb-3 pb-2 border-bottom border-primary border-3">
+									<i class="fas fa-history me-2"></i>Audit Trail
+								</h5>
+							</div>
+
+							<!-- Created Section -->
+							<div class="card border-0 shadow-sm mb-3" style=" background: linear-gradient(  135deg, #d4fc79 0%, #96e6a1 100% ); ">
+								<div class="card-body p-4">
+									<div class="d-flex align-items-center mb-3">
+										<div class="bg-white rounded-circle p-2 me-2">
+											<i class="fas fa-user-plus text-success"></i>
+										</div>
+										<h6 class="mb-0 fw-bold text-dark">
+											Created
+										</h6>
+									</div>
+									@if (Model.LastModifiedBy is not null && Model.LastModifiedBy != string.Empty)
+									{
+										<div class="mb-3">
+											<div class="d-flex align-items-center mb-2">
+												<i class="fas fa-user text-success me-2"></i>
+												<small class="text-dark fw-semibold">
+													Created
+													By
+												</small>
+											</div>
+											<div class="ms-4">
+												<div class="d-flex align-items-center">
+													<div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-2"
+														 style="    width: 32px;   height: 32px;       ">
+														<small class="fw-bold">@CreatedByTemp</small>
+													</div>
+													<label class="text-muted d-none my-0 fw-semibold" asp-for="CreatedBy" for="CreatedBy">DEPARTMENT Created By</label>
+													<input class="form-control-plaintext text-dark  fw-bold my-0 py-1 focus-ring-info rounded-2"
+														   asp-for="CreatedBy" id="CreatedBy" name="CreatedBy" type="text"   placeholder="Enter Created By" disabled />
+
+
+													@*<span class="fw-bold text-dark">
+														@Model.CreatedBy
+													</span>*@
+												</div>
+											</div>
+										</div>
+
+										<div>
+											<div class="d-flex align-items-center mb-2">
+												<i class="fas fa-clock text-success me-2"></i>
+												<small class="text-dark fw-semibold">
+													Created
+													On
+												</small>
+											</div>
+											<div class="ms-4">
+												<span class="badge bg-white text-dark">
+													<i class="fas fa-calendar-day me-1"></i>September 30,
+													@Model.CreatedOn
+												</span>
+											</div>
+										</div>
+									}
+									else
+									{
+										<span class="fw-bold text-dark">
+											Not Found
+										</span>
+									}
+								</div>
+							</div>
+
+							<!-- Last Modified Section -->
+							<div class="card border-0 shadow-sm mb-3" style="background: linear-gradient(135deg,#ffecd2 0%,#fcb69f 100%);                                                ">
+								<div class="card-body p-4">
+									<div class="d-flex align-items-center mb-3">
+										<div class="bg-white rounded-circle p-2 me-2">
+											<i class="fas fa-user-edit text-warning"></i>
+										</div>
+										<h6 class="mb-0 fw-bold text-dark">
+											Last Modified
+										</h6>
+									</div>
+									@if (Model.LastModifiedBy is not null && Model.LastModifiedBy != string.Empty)
+									{
+										<div class="mb-3">
+											<div class="d-flex align-items-center mb-2">
+												<i class="fas fa-user text-warning me-2"></i>
+												<small class="text-dark fw-semibold">
+													Modified
+													By
+												</small>
+											</div>
+											<div class="ms-4">
+												<div class="d-flex align-items-center">
+
+													<div class="bg-warning text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="  width: 32px; height: 32px;  ">
+														<small class="fw-bold">
+															@lastModifiedTemp
+														</small>
+													</div>
+													<span class="fw-bold text-dark">
+														@Model.LastModifiedBy
+													</span>
+
+												</div>
+											</div>
+										</div>
+
+										<div>
+											<div class="d-flex align-items-center mb-2">
+												<i class="fas fa-clock text-warning me-2"></i>
+												<small class="text-dark fw-semibold">
+													Modified
+													On
+												</small>
+											</div>
+											<div class="ms-4">
+												<span class="badge bg-white text-dark">
+													<i class="fas fa-calendar-day me-1"></i>September 30,
+													2025
+												</span>
+												<span class="badge bg-white text-dark ms-1">
+													<i class="fas fa-clock me-1"></i>02:45 PM
+												</span>
+											</div>
+										</div>
+									}
+									else
+									{
+										<span class="fw-bold text-dark">
+											Not Found
+										</span>
+									}
+								</div>
+							</div>
+
+							<!-- Quick Stats -->
+							<div class="card border-0 bg-primary bg-opacity-10 shadow-sm">
+								<div class="card-body p-3">
+									<h6 class="fw-bold mb-3 text-primary">
+										<i class="fas fa-chart-line me-2"></i>Quick Stats
+									</h6>
+									<div class="row g-2">
+										<div class="col-6">
+											<div class="text-center p-2 bg-white rounded">
+												<h4 class="mb-0 text-primary fw-bold">
+													24
+												</h4>
+												<small class="text-muted">Employees</small>
+											</div>
+										</div>
+										<div class="col-6">
+											<div class="text-center p-2 bg-white rounded">
+												<h4 class="mb-0 text-success fw-bold">
+													12
+												</h4>
+												<small class="text-muted">Projects</small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Action Buttons -->
+					<div class="row mt-4 pt-4 border-top">
+						<div class="col-12">
+							<div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+								<a class="btn btn-outline-secondary btn-lg" asp-action="Index" type="button">
+									<i class="fas fa-arrow-left me-2"></i>Back to List
+								</a>
+								<div class="d-flex gap-2">
+									<button type="button"
+											class="btn btn-outline-primary btn-lg">
+										<i class="fas fa-print me-2"></i>Print
+									</button>
+									<button type="button"
+											class="btn btn-outline-success btn-lg">
+										<i class="fas fa-file-export me-2"></i>Export
+									</button>
+									<a class="btn btn-primary btn-lg" asp-action="Edit" asp-route-id="@Model.Id" type="button">
+										<i class="fas fa-edit me-2"></i>Edit Department
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Toast Notification (Example) -->
+<div class="position-fixed bottom-0 end-0 p-3"
+	 style="z-index: 11">
+	<div id="liveToast"
+		 class="toast hide"
+		 role="alert"
+		 aria-live="assertive"
+		 aria-atomic="true">
+		<div class="toast-header bg-success text-white">
+			<i class="fas fa-check-circle me-2"></i>
+			<strong class="me-auto">Success</strong>
+			<button type="button"
+					class="btn-close btn-close-white"
+					data-bs-dismiss="toast">
+				.
+			</button>
+		</div>
+		<div class="toast-body">
+			Department details loaded successfully!
+		</div>
+	</div>
+</div>

@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace LinkDev.IKEA.DAL.Persistence.Data.Migrations
+namespace LinkDev.IKEA.DAL.Persistance.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250923172336_DepartmentModule")]
+    [Migration("20250929093927_DepartmentModule")]
     partial class DepartmentModule
     {
         /// <inheritdoc />
