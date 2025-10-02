@@ -9,7 +9,7 @@ namespace LinkDev.IKEA.PL
             using var scope = app.ApplicationServices.CreateScope();
             
             var services = scope.ServiceProvider;
-            var dbInitializer = services.GetRequiredService<IDbInitializer>(); // Ask Explicitly for the serivce
+            var dbInitializer = services.GetRequiredService<IDbInitializer>(); // Ask Explicitly for the service
 
             dbInitializer.Initialize();
             dbInitializer.SeedData();
