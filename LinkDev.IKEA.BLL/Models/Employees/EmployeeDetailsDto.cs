@@ -13,7 +13,7 @@ namespace LinkDev.IKEA.BLL.Models.Employees
     //public virtual Department? Department { get; set; }
     public record EmployeeDetailsDto(
        EmployeeDto Employee,
-       DepartmentDetailsDto Department,
+       DepartmentDetailsDto? Department,
        int YearsOfExperience
         );
 }

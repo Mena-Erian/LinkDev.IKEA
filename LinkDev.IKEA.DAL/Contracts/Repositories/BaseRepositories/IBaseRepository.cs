@@ -25,7 +25,7 @@ namespace LinkDev.IKEA.DAL.Contracts.Repositories.BaseRepositories
 
         PaginatedResult<TEntity> GetAll(
             QueryParameters queryParameters,
-            Expression<Func<TEntity, bool>> filter,
+            Expression<Func<TEntity, bool>>? filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null,
             bool withTracking = false
@@ -33,8 +33,10 @@ namespace LinkDev.IKEA.DAL.Contracts.Repositories.BaseRepositories
 
         TEntity? Get(int id);
 
-        TEntity? Get(Expression<Func<TEntity, bool>> filter,
-            Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null);
+        TEntity? Get(
+            Expression<Func<TEntity, bool>> filter,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null
+            );
 
         void Add(TEntity entity);
 

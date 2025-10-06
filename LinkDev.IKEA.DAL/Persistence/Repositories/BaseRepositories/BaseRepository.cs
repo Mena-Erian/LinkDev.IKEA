@@ -38,15 +38,15 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories.BaseRepositories
             return query.AsNoTracking().ToList();
         }
 
-        public PaginatedResult<TEntity> GetAll(QueryParameters queryParameters, Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null, bool withTracking = false)
+        public PaginatedResult<TEntity> GetAll(QueryParameters queryParameters, Expression<Func<TEntity, bool>>? filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null, bool withTracking = false)
         {
             IQueryable<TEntity> query = _dbSet;
 
             if (includes is not null)
                 query = includes(query);
 
-
-            query = query.Where(filter);
+            if (filter is not null)
+                query = query.Where(filter);
 
             var totalCount = query.Count();
 
