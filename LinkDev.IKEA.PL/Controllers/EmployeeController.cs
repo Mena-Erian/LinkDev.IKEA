@@ -28,21 +28,28 @@ namespace LinkDev.IKEA.PL.Controllers
 
         #region Index
         [HttpGet] // GET: /EmployeeViewModel/Index
-        public IActionResult Index(string searchTerm = "", int pageIndex = 1, int pageSize = 10)
+        public IActionResult Index(
+            string searchTerm = "",
+            string sortBy = "",
+            bool sortAscending = true,
+            int pageIndex = 1,
+            int pageSize = 10)
         {
             var queryParameters = new QueryParameters()
             {
                 PageIndex = pageIndex,
                 PageSize = pageSize,
-                SearchTerm = searchTerm
+                SearchTerm = searchTerm,
+                SortBy = sortBy,
+                SortAscending = sortAscending
             };
 
 
-            var employees = _employeeService.GetEmployees(queryParameters);
+            var paginatedResult = _employeeService.GetEmployees(queryParameters);
 
             var model = new EmployeeListViewModel()
             {
-                Employees = employees.Data.Select(emp => new EmployeeViewModel()
+                Employees = paginatedResult.Data.Select(emp => new EmployeeViewModel()
                 {
                     Id = emp.Id,
                     FullName = $"{emp.FirstName} {emp.LastName}",
@@ -61,9 +68,9 @@ namespace LinkDev.IKEA.PL.Controllers
                     LastModifiedBy = emp.LastModifiedBy,
                     LastModifiedOn = emp.LastModifiedOn
                 }),
-                Page = employees.PageIndex,
-                PageSize = employees.PageSize,
-                TotalCount = employees.TotalPageCount,
+                Page = paginatedResult.PageIndex,
+                PageSize = paginatedResult.PageSize,
+                TotalCount = paginatedResult.TotalPageCount,
             };
 
             return View(model);
@@ -269,6 +276,6 @@ namespace LinkDev.IKEA.PL.Controllers
     }
 }
 
-/// PageIndex = employees.PageIndex,
-/// PageSize = employees.PageSize,
-/// TotalCount = employees.TotalCount,
+/// PageIndex = paginatedResult.PageIndex,
+/// PageSize = paginatedResult.PageSize,
+/// TotalCount = paginatedResult.TotalCount,

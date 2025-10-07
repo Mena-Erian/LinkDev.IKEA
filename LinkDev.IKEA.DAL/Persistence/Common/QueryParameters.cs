@@ -32,6 +32,8 @@ namespace LinkDev.IKEA.DAL.Persistence.Common
             get { return searchTerm; }
             set { searchTerm = value?.ToLower(); }
         }
+        public string? SortBy { get; set; }
+        public bool? SortAscending { get; set; }
 
     }
 }

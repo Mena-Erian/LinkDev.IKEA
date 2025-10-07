@@ -17,22 +17,51 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories
     {
         public EmployeeRepository(ApplicationDbContext dbContext) : base(dbContext) { }
 
-        public PaginatedResult<Employee> GetAll(QueryParameters queryParameters)
+        public PaginatedResult<Employee> GetAll(QueryParameters parameters)
         {
             Expression<Func<Employee, bool>>? filter = null;
 
             // Apply Filtration
-            if (!string.IsNullOrEmpty(queryParameters.SearchTerm))
+            if (!string.IsNullOrEmpty(parameters.SearchTerm))
             {
-                filter = e => e.FirstName.ToLower().Contains(queryParameters.SearchTerm ?? "") ||
-                         e.LastName.ToLower().Contains(queryParameters.SearchTerm ?? "");
+                filter = e => e.FirstName.ToLower().Contains(parameters.SearchTerm ?? "") ||
+                         e.LastName.ToLower().Contains(parameters.SearchTerm ?? "");
             }
 
             Func<IQueryable<Employee>, IQueryable<Employee>>? includes = null;
             includes = e => e.Include(nameof(Employee.Department));
 
+            // Apply Ordering
+            Func<IQueryable<Employee>, IOrderedQueryable<Employee>>? orderby = null;
+
+            if (!parameters.SortAscending.HasValue) parameters.SortAscending = false;
+
+            orderby = parameters.SortBy?.ToLower() switch
+            {
+                "name" => parameters.SortAscending.Value ?
+                            query => query.OrderBy(e => e.FirstName).ThenBy(e => e.LastName)
+                            : query => query.OrderByDescending(e => e.FirstName).ThenBy(e => e.LastName),
+
+                "email" => parameters.SortAscending.Value ?
+                              query => query.OrderBy(e => e.Email)
+                            : query => query.OrderByDescending(e => e.Email),
+
+                "hireDate" => parameters.SortAscending.Value ?
+                              query => query.OrderBy(e => e.HireDate)
+                            : query => query.OrderByDescending(e => e.HireDate),
+
+                "status" => parameters.SortAscending.Value ?
+                               query => query.OrderBy(e => e.IsActive)
+                             : query => query.OrderByDescending(e => e.IsActive),
+
+
+                _ => parameters.SortAscending.Value ?
+                query => query.OrderBy(e => e.FirstName).ThenBy(e => e.LastName)
+                : query => query.OrderByDescending(e => e.FirstName).ThenBy(e => e.LastName)
+            };
+
             bool withTracking = false;
-            return base.GetAll(queryParameters, filter, null, includes, withTracking);
+            return base.GetAll(parameters, filter, orderby, includes, withTracking);
         }
     }
 
