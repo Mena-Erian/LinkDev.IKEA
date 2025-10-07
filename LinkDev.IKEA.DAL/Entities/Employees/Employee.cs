@@ -14,7 +14,7 @@ namespace LinkDev.IKEA.DAL.Entities.Employees
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
 
-        public int? Age { get; set; }
+        public int Age { get; set; }
         public decimal Salary { get; set; }
         public string? Address { get; set; }
         public bool IsActive { get; set; }

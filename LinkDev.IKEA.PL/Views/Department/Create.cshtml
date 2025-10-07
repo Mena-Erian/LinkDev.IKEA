@@ -46,6 +46,8 @@
 
 				<div class="card-body p-5">
 					<form asp-action="Create">
+						<div asp-validation-summary="All" class="text-danger"></div>
+
 						<!-- Department ID -->
 						<div class="mb-4">
 							<label asp-for="Id" class="form-label fw-bold">

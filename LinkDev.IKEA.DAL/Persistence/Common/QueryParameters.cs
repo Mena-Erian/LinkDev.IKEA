@@ -15,7 +15,14 @@ namespace LinkDev.IKEA.DAL.Persistence.Common
         public int PageSize
         {
             get => _pageSize;
-            set => _pageSize = value > maxPageSize ? maxPageSize : value;
+            set
+            {
+                if (value > maxPageSize) _pageSize = maxPageSize;
+
+                if (value < 1) _pageSize = 10;
+
+                _pageSize = value;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using LinkDev.IKEA.BLL.Services.Departments;
+using LinkDev.IKEA.BLL.Services.Employees;
 using LinkDev.IKEA.DAL.Contracts;
 using LinkDev.IKEA.DAL.Persistence.Data;
 using LinkDev.IKEA.DAL.Persistence.Data.DbInitializer;
@@ -20,6 +21,8 @@ namespace LinkDev.IKEA.BLL
         {
 
             services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
+
             return services;
         }
     }

@@ -38,15 +38,15 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories.BaseRepositories
             return query.AsNoTracking().ToList();
         }
 
-        public PaginatedResult<TEntity> GetAll(QueryParameters queryParameters, Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null, bool withTracking = false)
+        public PaginatedResult<TEntity> GetAll(QueryParameters queryParameters, Expression<Func<TEntity, bool>>? filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null, bool withTracking = false)
         {
             IQueryable<TEntity> query = _dbSet;
 
             if (includes is not null)
                 query = includes(query);
 
-
-            query = query.Where(filter);
+            if (filter is not null)
+                query = query.Where(filter);
 
             var totalCount = query.Count();
 
@@ -98,10 +98,19 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories.BaseRepositories
         }
         public TEntity? Get(int id) => _dbSet.Find(id);
 
-        public void Add(TEntity entity) => Add(entity);
+        public void Add(TEntity entity) => _dbSet.Add(entity);
 
-        public void Update(TEntity entity) =>
-             _dbSet.Update(entity);
+        public void Update(TEntity entity)
+        {
+            var localEntity = _dbSet.Local.FirstOrDefault(e => e.Id.Equals(entity.Id));
+            if (localEntity != null)
+            {
+
+                _dbSet.Entry(localEntity).State = EntityState.Detached;
+            }
+
+            _dbSet.Update(entity);
+        }
 
         public void Delete(int id)
         {
