@@ -14,15 +14,17 @@ namespace LinkDev.IKEA.PL.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
-        //private readonly IDepartmentService _departmentService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ILogger<EmployeeController> _logger;
 
-        public EmployeeController(IEmployeeService employeeService, ILogger<EmployeeController> logger)
+        public EmployeeController(IEmployeeService employeeService, ILogger<EmployeeController> logger, IWebHostEnvironment webHostEnvironment)
         {
             _employeeService = employeeService;
             _logger = logger;
+            _webHostEnvironment = webHostEnvironment;
         }
 
+        #region Read
         [HttpGet] // GET: /EmployeeViewModel/Index
         public IActionResult Index(int pageIndex = 1, int pageSize = 10)
         {
@@ -63,7 +65,9 @@ namespace LinkDev.IKEA.PL.Controllers
 
             return View(model);
         }
-
+        #endregion
+        
+        #region Details
         [HttpGet] // GET: Employee/Details/{Id}
         public IActionResult Details(int? id)
         {
@@ -97,6 +101,9 @@ namespace LinkDev.IKEA.PL.Controllers
 
             return View(model);
         }
+        #endregion
+
+        #region Create
 
         [HttpGet] // GET: Employee/Create
         public IActionResult Create()
@@ -145,6 +152,9 @@ namespace LinkDev.IKEA.PL.Controllers
             TempData["Message"] = message;
             return RedirectToAction(nameof(Index));
         }
+        #endregion
+
+        #region Update
 
         [HttpGet] // GET: /Employee/Edit
         public IActionResult Edit(int? id)
@@ -222,6 +232,36 @@ namespace LinkDev.IKEA.PL.Controllers
             TempData["Message"] = message;
             return RedirectToAction(nameof(Index));
         }
+        #endregion
+
+        #region Delete
+        [HttpPost] // Post: /Employee/Delete/{id} 
+        public IActionResult Delete(int id)
+        {
+            var message = "Employee Deleted Successfully";
+            try
+            {
+                if (!_employeeService.DeleteEmployee(id))
+                {
+                    message = "Failed to Deleted Employee";
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex.StackTrace!.ToString());
+                if (_webHostEnvironment.IsDevelopment())
+                {
+                    message = $"An Error Occurred: {message}, Please Try Again Later";
+                }
+                message = $"An Error Occurred, Please Try Again Later";
+
+            }
+
+
+            TempData["Message"] = message;
+            return RedirectToAction(nameof(Index));
+        } 
+        #endregion
     }
 }
 
