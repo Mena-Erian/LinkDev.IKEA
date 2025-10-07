@@ -5,6 +5,7 @@ using LinkDev.IKEA.DAL.Entities.Departments;
 using LinkDev.IKEA.DAL.Entities.Employees;
 using LinkDev.IKEA.DAL.Persistence.Common;
 using LinkDev.IKEA.PL.ViewModels.Employees;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -22,7 +23,7 @@ namespace LinkDev.IKEA.PL.Controllers
             _logger = logger;
         }
 
-        [HttpGet]   // GET: /EmployeeViewModel/Index
+        [HttpGet] // GET: /EmployeeViewModel/Index
         public IActionResult Index(int pageIndex = 1, int pageSize = 10)
         {
             var queryParameters = new QueryParameters()
@@ -45,7 +46,7 @@ namespace LinkDev.IKEA.PL.Controllers
                     Address = emp.Address ?? string.Empty,
                     Salary = emp.Salary,
                     IsActive = emp.IsActive,
-                    Age = emp.Age ?? default,
+                    Age = emp.Age,
                     FormattedHireDate = emp.HireDate.ToString(),
                     Gender = emp.Gender,
                     EmployeeType = emp.EmployeeType,
@@ -82,7 +83,7 @@ namespace LinkDev.IKEA.PL.Controllers
                 Address = employeeDetails.Employee.Address ?? string.Empty,
                 Salary = employeeDetails.Employee.Salary,
                 IsActive = employeeDetails.Employee.IsActive,
-                Age = employeeDetails.Employee.Age ?? default,
+                Age = employeeDetails.Employee.Age,
                 HireDate = employeeDetails.Employee.HireDate,
                 Gender = employeeDetails.Employee.Gender,
                 EmployeeType = employeeDetails.Employee.EmployeeType,
@@ -104,7 +105,7 @@ namespace LinkDev.IKEA.PL.Controllers
             return View(new EmployeeCreateViewModel() { HiringDate = DateOnly.FromDateTime(DateTime.Now) });
         }
 
-        [HttpPost] //POST: /Employee/Create
+        [HttpPost] // POST: /Employee/Create
         public IActionResult Create(EmployeeCreateViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -137,8 +138,85 @@ namespace LinkDev.IKEA.PL.Controllers
             {
                 _logger.LogError(ex.Message, ex.StackTrace!.ToString());
 
-                message = "An Error Occurred, Please Try Again Later";
+                message = $"An Error Occurred: {message}, Please Try Again Later";
 
+            }
+
+            TempData["Message"] = message;
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet] // GET: /Employee/Edit
+        public IActionResult Edit(int? id)
+        {
+            if (!id.HasValue) return BadRequest();
+
+            var employee = _employeeService.GetEmployeeById(id.Value);
+
+            if (employee == null) return BadRequest();
+
+            var viewModel = new EmployeeEditViewModel()
+            {
+                Id = employee.Id,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                Email = employee.Email ?? string.Empty,
+                PhoneNumber = employee.PhoneNumber ?? string.Empty,
+                Address = employee.Address ?? string.Empty,
+                Salary = employee.Salary,
+                IsActive = employee.IsActive,
+                Age = employee.Age,
+                HiringDate = employee.HireDate,
+                Gender = employee.Gender,
+                EmployeeType = employee.EmployeeType,
+                DepartmentId = employee.DepartmentId,
+            };
+            TempData["Id"] = id;
+            return View(viewModel);
+        }
+
+        [HttpPost] // POST: /Employee/Edit/{id}
+        public IActionResult Edit([FromRoute] int id, EmployeeEditViewModel employeeModel)
+        {
+            if ((int?)TempData["Id"] != id)
+            {
+                ModelState.AddModelError("Id", "Invalid Id");
+                return View(employeeModel);
+            }
+
+            if (!ModelState.IsValid)
+                return View(employeeModel);
+
+
+            var message = "Employee Editing Successfully";
+
+            try
+            {
+                var isUpdated = _employeeService.UpdateEmployee(new UpdateEmployeeDto(
+                employeeModel.Id,
+                employeeModel.FirstName,
+                employeeModel.LastName,
+                employeeModel.Email ?? null,
+                employeeModel.PhoneNumber ?? null,
+                employeeModel.Address ?? null,
+                employeeModel.Salary,
+                employeeModel.IsActive,
+                employeeModel.Age,
+                Image: default,
+                employeeModel.HiringDate,
+                employeeModel.Gender,
+                employeeModel.EmployeeType,
+                employeeModel.DepartmentId ?? null
+                )) > 0;
+
+                if (!isUpdated)
+                    message = "Employee Editing Failed";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex.StackTrace!.ToString());
+
+                message = $"An Error Occurred: {message}, Please Try Again Later";
             }
 
             TempData["Message"] = message;

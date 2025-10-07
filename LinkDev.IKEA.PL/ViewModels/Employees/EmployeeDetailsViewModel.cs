@@ -19,7 +19,7 @@ namespace LinkDev.IKEA.PL.ViewModels.Employees
         [Display(Name = "Full Name")]
         public string FullName => $"{FirstName} {LastName}";
 
-        public int? Age { get; set; }
+        public int Age { get; set; }
         public decimal Salary { get; set; }
         public string? Address { get; set; }
         public bool IsActive { get; set; }

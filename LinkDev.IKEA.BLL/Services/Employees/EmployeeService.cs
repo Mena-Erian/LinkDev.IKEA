@@ -69,7 +69,7 @@ namespace LinkDev.IKEA.BLL.Services.Employees
                 employee.Address ?? null,
                 employee.Salary,
                 employee.IsActive,
-                employee.Age ?? default,
+                employee.Age,
                 employee.Image ?? null,
                 employee.HireDate,
                 employee.Gender,
@@ -101,7 +101,7 @@ namespace LinkDev.IKEA.BLL.Services.Employees
                 employee.Address ?? null,
                 employee.Salary,
                 employee.IsActive,
-                employee.Age ?? default,
+                employee.Age,
                 employee.Image ?? null,
                 employee.HireDate,
                 employee.Gender,
@@ -154,7 +154,7 @@ namespace LinkDev.IKEA.BLL.Services.Employees
                     employee.Address ?? null,
                     employee.Salary,
                     employee.IsActive,
-                    employee.Age ?? default,
+                    employee.Age,
                     employee.Image ?? null,
                     employee.HireDate,
                     employee.Gender,
@@ -173,6 +173,7 @@ namespace LinkDev.IKEA.BLL.Services.Employees
 
         PaginatedResult<EmployeeDto> IEmployeeService.GetEmployees(QueryParameters queryParameters)
         {
+
             var employees = _unitOfWork.Employees.GetAll(
                 queryParameters: queryParameters,
                 //includes: e => e.Include(e => e.Department)
@@ -192,7 +193,7 @@ namespace LinkDev.IKEA.BLL.Services.Employees
                                              emp.Address ?? null,
                                              emp.Salary,
                                              emp.IsActive,
-                                             emp.Age ?? default,
+                                             emp.Age,
                                              emp.Image ?? null,
                                              emp.HireDate,
                                              emp.Gender,
@@ -218,6 +219,7 @@ namespace LinkDev.IKEA.BLL.Services.Employees
             ValidateEmployeeUpdateBusinessRules(employeeDto);
 
             if (employeeDto is null) return 0;
+
 
             _unitOfWork.Employees.Update(new Employee()
             {
@@ -291,9 +293,11 @@ namespace LinkDev.IKEA.BLL.Services.Employees
 
 
             var minUpdatedSalary = employeeBeforeUpdate.Salary + (employeeBeforeUpdate.Salary * 1.1m);
-
-            if (employeeDto.Salary < minUpdatedSalary)
-                throw new Exception($"Salary must be greater that {minUpdatedSalary}.Because the Last Current Salary is {employeeBeforeUpdate.Salary} and The Salary you want to update to is {employeeDto.Salary} and it should to be greater than this at least 10%");
+            if (employeeBeforeUpdate.Salary != employeeBeforeUpdate.Salary)
+            {
+                if (employeeDto.Salary < minUpdatedSalary)
+                    throw new Exception($"Salary must be greater that {minUpdatedSalary}.Because the Last Current Salary is {employeeBeforeUpdate.Salary} and The Salary you want to update to is {employeeDto.Salary} and it should to be greater than this at least 10%");
+            }
         }
         #endregion
     }

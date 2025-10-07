@@ -8,7 +8,7 @@ namespace LinkDev.IKEA.PL.ViewModels.Employees
     {
         public int Id { get; set; }
         public required string FullName { get; set; }
-        public int? Age { get; set; }
+        public int Age { get; set; }
         [Display(Name = "Hiring Date")]
         public string? FormattedHireDate { get; set; }
         public string? Address { get; set; }

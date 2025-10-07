@@ -13,7 +13,7 @@ namespace LinkDev.IKEA.BLL.Services.Employees
         EmployeeDto? GetEmployeeById(int employeeId);
 
         EmployeeDetailsDto? GetEmployeeDetailsById(int employeeId);
-        
+
         IEnumerable<EmployeeDto> GetEmployees();
 
         PaginatedResult<EmployeeDto> GetEmployees(QueryParameters queryParameters);

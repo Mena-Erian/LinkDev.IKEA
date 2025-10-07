@@ -100,8 +100,17 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories.BaseRepositories
 
         public void Add(TEntity entity) => _dbSet.Add(entity);
 
-        public void Update(TEntity entity) =>
-             _dbSet.Update(entity);
+        public void Update(TEntity entity)
+        {
+            var localEntity = _dbSet.Local.FirstOrDefault(e => e.Id.Equals(entity.Id));
+            if (localEntity != null)
+            {
+
+                _dbSet.Entry(localEntity).State = EntityState.Detached;
+            }
+
+            _dbSet.Update(entity);
+        }
 
         public void Delete(int id)
         {

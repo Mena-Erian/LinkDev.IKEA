@@ -16,7 +16,7 @@ namespace LinkDev.IKEA.BLL.Models.Employees
         string? Address,
         decimal Salary,
         bool IsActive,
-        int? Age,
+        int Age,
         string? Image,
         DateOnly HireDate,
         Gender Gender,

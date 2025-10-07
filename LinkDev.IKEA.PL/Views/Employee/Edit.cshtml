@@ -1,53 +1,26 @@
 ﻿@using LinkDev.IKEA.BLL.Services.Departments
-@using LinkDev.IKEA.DAL.Entities.Departments
-@model EmployeeCreateViewModel
+@model EmployeeEditViewModel
 @inject IDepartmentService _departmentService
 @{
-	ViewData["Title"] = "Create";
-
+	ViewData["Title"] = "Edit";
 
 	var departments = _departmentService.GetDepartments();
 	Model.Departments = new SelectList(departments, nameof(Department.Id), nameof(Department.Name));
-	/// Model.Departments = departments.Select(d => new SelectListItem()
-	/// {
-	/// 	Text = d.Name,
-	/// 	Value = d.Id.ToString()
-	/// });
-
-	/// IEnumerable<SelectListItem> employeeTypesList = new List<SelectListItem>()
-	/// {
-	/// 	new SelectListItem() {Text = EmployeeType.Intern.ToString() , Value = EmployeeType.Intern.ToString() },
-	/// 	new SelectListItem() {Text = EmployeeType.PartTime.ToString() , Value = EmployeeType.PartTime.ToString() },
-	/// 	new SelectListItem() {Text = EmployeeType.FullTime.ToString() , Value = EmployeeType.FullTime.ToString() },
-	/// };
-	/// IEnumerable<SelectListItem> genders = new List<SelectListItem>()
-	/// {
-	/// 	new SelectListItem() {Text = Gender.Male.ToString() , Value = Gender.Male.ToString() },
-	/// 	new SelectListItem() {Text = Gender.Female.ToString() , Value = Gender.Female.ToString() },
-	/// };
 }
-<head>
-	<style>
-		label {
-			margin-top: 10px;
-		}
-	</style>
-</head>
 
 <div class="container">
-	<h1>Create Employee</h1>
+	<h1>Edit Employee</h1>
 
 	<div class="row">
 		<div class="col-md-8">
 			<div class="card">
-				<div class="card-header bg-info">
-					<h4>Employee Information</h4>
+				<div class="card-header bg-warning">
+					<h4>Edit Employee Information</h4>
 				</div>
 				<div class="card-body">
-					<form asp-action="Create" method="post">
-
+					<form asp-action="Edit" method="post">
 						<input type="hidden" asp-for="Id" />
-						<div asp-validation-summary="All" class="text-danger "></div>
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 						<div class="form-row d-flex justify-content-between">
 							<div class="form-group col-md-5">
@@ -130,9 +103,10 @@
 							</div>
 						</div>
 
-						<div class="form-group mt-4">
+
+						<div class="form-group">
 							<button type="submit" class="btn btn-warning">
-								<i class="fas fa-save"></i> Create
+								<i class="fas fa-save"></i> Save Changes
 							</button>
 							<a asp-action="Index" class="btn btn-secondary">
 								<i class="fas fa-arrow-left"></i> Back to List
@@ -145,10 +119,10 @@
 		<div class="col-md-4">
 			<div class="card">
 				<div class="card-header bg-info text-white">
-					<h4>Create Information</h4>
+					<h4>Edit Information</h4>
 				</div>
 				<div class="card-body">
-					<p>You can Create the employee information using this form.</p>
+					<p>You can modify the employee information using this form.</p>
 					<ul>
 						<li>You can change the employee's active status using the checkbox.</li>
 						<li>The hire date cannot be modified.</li>

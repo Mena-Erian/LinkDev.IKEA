@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LinkDev.IKEA.PL.ViewModels.Employees
 {
-    public class EmployeeCreateViewModel
+    public class EmployeeEditViewModel
     {
         public int Id { get; set; }
 
@@ -31,8 +31,7 @@ namespace LinkDev.IKEA.PL.ViewModels.Employees
         [DataType(DataType.Currency)]
         [Range(0.01, 1000000, ErrorMessage = "Salary must be greater than 0 and less than 1,000,000")]
         public decimal Salary { get; set; }
-
-        
+ 
         public string? Address { get; set; }
 
         [Display(Name = "Is Active")]
@@ -46,6 +45,7 @@ namespace LinkDev.IKEA.PL.ViewModels.Employees
         public DateOnly HiringDate { get; set; }
 
         public Gender Gender { get; set; }
+
 
         public EmployeeType EmployeeType { get; set; }
 
