@@ -98,7 +98,7 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories.BaseRepositories
         }
         public TEntity? Get(int id) => _dbSet.Find(id);
 
-        public void Add(TEntity entity) => Add(entity);
+        public void Add(TEntity entity) => _dbSet.Add(entity);
 
         public void Update(TEntity entity) =>
              _dbSet.Update(entity);

@@ -1,14 +1,19 @@
-﻿using LinkDev.IKEA.BLL.Services.Employees;
+﻿using LinkDev.IKEA.BLL.Models.Employees;
+using LinkDev.IKEA.BLL.Services.Departments;
+using LinkDev.IKEA.BLL.Services.Employees;
+using LinkDev.IKEA.DAL.Entities.Departments;
 using LinkDev.IKEA.DAL.Entities.Employees;
 using LinkDev.IKEA.DAL.Persistence.Common;
 using LinkDev.IKEA.PL.ViewModels.Employees;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LinkDev.IKEA.PL.Controllers
 {
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
+        //private readonly IDepartmentService _departmentService;
         private readonly ILogger<EmployeeController> _logger;
 
         public EmployeeController(IEmployeeService employeeService, ILogger<EmployeeController> logger)
@@ -90,6 +95,54 @@ namespace LinkDev.IKEA.PL.Controllers
             };
 
             return View(model);
+        }
+
+        [HttpGet] // GET: Employee/Create
+        public IActionResult Create()
+        {
+
+            return View(new EmployeeCreateViewModel() { HiringDate = DateOnly.FromDateTime(DateTime.Now) });
+        }
+
+        [HttpPost] //POST: /Employee/Create
+        public IActionResult Create(EmployeeCreateViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var message = "Employee Created Successfully";
+
+            try
+            {
+                var isCreated = _employeeService.CreateEmployee(new CreateEmployeeDto(
+                                                      model.Id,
+                                                      model.FirstName,
+                                                      model.LastName,
+                                                      model.Email ?? null,
+                                                      model.PhoneNumber ?? null,
+                                                      model.Address ?? null,
+                                                      model.Salary,
+                                                      model.IsActive,
+                                                      model.Age,
+                                                      Image: default,
+                                                      model.HiringDate,
+                                                      model.Gender,
+                                                      model.EmployeeType,
+                                                      model.DepartmentId ?? null
+                                                      )) > 0;
+
+                if (!isCreated)
+                    message = "Employee Creation Failed";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex.StackTrace!.ToString());
+
+                message = "An Error Occurred, Please Try Again Later";
+
+            }
+
+            TempData["Message"] = message;
+            return RedirectToAction(nameof(Index));
         }
     }
 }
