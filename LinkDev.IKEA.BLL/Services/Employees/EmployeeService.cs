@@ -175,9 +175,11 @@ namespace LinkDev.IKEA.BLL.Services.Employees
         {
 
             var employees = _unitOfWork.Employees.GetAll(
-                queryParameters: queryParameters,
-                //includes: e => e.Include(e => e.Department)
-                includes: e => e.Include(nameof(Employee.Department))
+                queryParameters: queryParameters
+                //includes: e => e.Include(nameof(Employee.Department)),
+                //filter: e => e.FirstName.ToLower().Contains(queryParameters.SearchTerm ?? "") ||
+                //             e.LastName.ToLower().Contains(queryParameters.SearchTerm ?? "")
+
                 );
 
             if (employees is null) return null!;
@@ -208,7 +210,6 @@ namespace LinkDev.IKEA.BLL.Services.Employees
                 PageSize = employees.PageSize,
                 TotalCount = employees.TotalCount,
             };
-
 
 
             return paginatedResult;

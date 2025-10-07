@@ -23,13 +23,13 @@ namespace LinkDev.IKEA.DAL.Contracts.Repositories.BaseRepositories
             bool withTracking = false
             );
 
-        PaginatedResult<TEntity> GetAll(
-            QueryParameters queryParameters,
-            Expression<Func<TEntity, bool>>? filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
-            Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null,
-            bool withTracking = false
-            );
+         PaginatedResult<TEntity> GetAll(
+               QueryParameters queryParameters,
+               Expression<Func<TEntity, bool>>? filter = null,
+               Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+               Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null,
+               bool withTracking = false
+               );
 
         TEntity? Get(int id);
 

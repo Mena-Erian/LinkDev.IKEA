@@ -13,6 +13,7 @@ namespace LinkDev.IKEA.PL.Controllers
 {
     public class EmployeeController : Controller
     {
+        #region Services
         private readonly IEmployeeService _employeeService;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ILogger<EmployeeController> _logger;
@@ -23,15 +24,17 @@ namespace LinkDev.IKEA.PL.Controllers
             _logger = logger;
             _webHostEnvironment = webHostEnvironment;
         }
+        #endregion
 
-        #region Read
+        #region Index
         [HttpGet] // GET: /EmployeeViewModel/Index
-        public IActionResult Index(int pageIndex = 1, int pageSize = 10)
+        public IActionResult Index(string searchTerm = "", int pageIndex = 1, int pageSize = 10)
         {
             var queryParameters = new QueryParameters()
             {
                 PageIndex = pageIndex,
-                PageSize = pageSize
+                PageSize = pageSize,
+                SearchTerm = searchTerm
             };
 
 
@@ -65,8 +68,9 @@ namespace LinkDev.IKEA.PL.Controllers
 
             return View(model);
         }
+
         #endregion
-        
+
         #region Details
         [HttpGet] // GET: Employee/Details/{Id}
         public IActionResult Details(int? id)
@@ -260,7 +264,7 @@ namespace LinkDev.IKEA.PL.Controllers
 
             TempData["Message"] = message;
             return RedirectToAction(nameof(Index));
-        } 
+        }
         #endregion
     }
 }
