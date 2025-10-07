@@ -1,6 +1,7 @@
 ﻿using LinkDev.IKEA.BLL.Models.Departments;
 using LinkDev.IKEA.DAL.Contracts;
 using LinkDev.IKEA.DAL.Entities.Departments;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,11 +41,21 @@ namespace LinkDev.IKEA.BLL.Services.Departments
 
         public DepartmentDetailsDto? GetDepartmentsById(int departmentId)
         {
-            var department = _unitOfWork.Departments.Get(departmentId);
+            //var department = _unitOfWork.Departments.Get(departmentId);
+            var department = _unitOfWork.Departments.Get(d => d.Id == departmentId, query => query.Include(d => d.Manager));
 
             if (department is null) return null;
 
-            return new DepartmentDetailsDto(department.Id, department.Name, department.Code, department.Description, department.CreationDate, department.CreatedBy, department.CreatedOn, department.LastModifiedBy, department.LastModifiedOn);
+            return new DepartmentDetailsDto(department.Id,
+                                            department.Name,
+                                            department.Code,
+                                            department.Description,
+                                            department.CreationDate,
+                                            department.CreatedBy,
+                                            department.CreatedOn,
+                                            department.LastModifiedBy,
+                                            department.LastModifiedOn
+                                           );
         }
 
         public int UpdateDepartment(UpdateDepartmentDto department)
@@ -63,7 +74,7 @@ namespace LinkDev.IKEA.BLL.Services.Departments
             _unitOfWork.Departments.Update(departmentUpdated);
             return _unitOfWork.Commit();
         }
-        
+
         public bool DeleteDepartment(int departmentId)
         {
             _unitOfWork.Departments.Delete(departmentId);

@@ -57,6 +57,40 @@ namespace LinkDev.IKEA.PL.Controllers
 
             return View(model);
         }
+
+        [HttpGet] // GET: Employee/Details/{Id}
+        public IActionResult Details(int? id)
+        {
+            if (!id.HasValue) return BadRequest("Needs To Id");
+
+            var employeeDetails = _employeeService.GetEmployeeDetailsById(id.Value);
+
+            if (employeeDetails == null) return NotFound("Employee Id Not Found");
+
+            var model = new EmployeeDetailsViewModel()
+            {
+                Id = employeeDetails.Employee.Id,
+                FirstName = employeeDetails.Employee.FirstName,
+                LastName = employeeDetails.Employee.LastName,
+                Email = employeeDetails.Employee.Email ?? string.Empty,
+                PhoneNumber = employeeDetails.Employee.PhoneNumber ?? string.Empty,
+                Address = employeeDetails.Employee.Address ?? string.Empty,
+                Salary = employeeDetails.Employee.Salary,
+                IsActive = employeeDetails.Employee.IsActive,
+                Age = employeeDetails.Employee.Age ?? default,
+                HireDate = employeeDetails.Employee.HireDate,
+                Gender = employeeDetails.Employee.Gender,
+                EmployeeType = employeeDetails.Employee.EmployeeType,
+                Department = employeeDetails.Department,
+                CreatedBy = employeeDetails.Employee.CreatedBy,
+                CreatedOn = employeeDetails.Employee.CreatedOn,
+                LastModifiedBy = employeeDetails.Employee.LastModifiedBy,
+                LastModifiedOn = employeeDetails.Employee.LastModifiedOn,
+                DepartmentMngName = employeeDetails.Employee.DepartmentMngName
+            };
+
+            return View(model);
+        }
     }
 }
 

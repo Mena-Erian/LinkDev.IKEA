@@ -25,6 +25,7 @@ namespace LinkDev.IKEA.BLL.Models.Employees
         Gender Gender,
         EmployeeType EmployeeType,
         int? DepartmentId,
+        string? DepartmentMngName,
         string CreatedBy,
         DateTime CreatedOn,
         string LastModifiedBy, 
