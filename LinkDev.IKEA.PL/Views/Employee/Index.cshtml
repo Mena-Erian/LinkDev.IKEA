@@ -1,4 +1,5 @@
-﻿@model EmployeeListViewModel
+﻿@using LinkDev.IKEA.PL.Controllers
+@model EmployeeListViewModel
 @{
 	ViewData["Title"] = "Employees";
 	var temp = Model.Employees.FirstOrDefault(new EmployeeViewModel()
@@ -70,7 +71,8 @@
 				<th>@Html.DisplayNameFor(_ => temp.EmployeeType)</th>
 				<th>@Html.DisplayNameFor(_ => temp.Age)</th>
 				<th>@Html.DisplayNameFor(_ => temp.Salary)</th>
-				<th>@Html.DisplayNameFor(_ => temp.IsActive)</th>
+				<th>Status</th>
+				<th>De/Activiate</th>
 				<th>@Html.DisplayNameFor(_ => temp.Gender)</th>
 				<th>@Html.DisplayNameFor(_ => temp.FormattedHireDate)</th>
 				<th>Details </th>
@@ -89,7 +91,28 @@
 					<td>@employee.EmployeeType</td>
 					<td>@employee.Age</td>
 					<td>@employee.Salary</td>
-					<td>@employee.IsActive</td>
+					<td>
+						@if (employee.IsActive)
+						{
+							<button class="btn btn-success btn-sm">
+								Active
+							</button>
+						}
+						else
+						{
+							<button class="btn btn-secondary btn-sm">
+								Inactive
+							</button>
+						}
+					</td>
+					<td>
+						<form asp-action="@nameof(EmployeeController.ToggleStatus)" asp-route-id="@employee.Id" asp-route-activation="@(employee.IsActive ? false : true)" method="post" style="display:inline;">
+							<input type="hidden" asp-for="@employee.IsActive" />
+							<button type="submit" class="btn btn-outline-dark btn-sm">
+								@(employee.IsActive ? "Deactivate" : "Activate")
+							</button>
+						</form>
+					</td>
 					<td>@employee.Gender</td>
 					<td>@employee.FormattedHireDate</td>
 

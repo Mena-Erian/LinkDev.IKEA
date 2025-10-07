@@ -273,6 +273,37 @@ namespace LinkDev.IKEA.PL.Controllers
             return RedirectToAction(nameof(Index));
         }
         #endregion
+
+        #region Toggle Status
+
+        public IActionResult ToggleStatus(int id, bool activation)
+        {
+            string message = string.Empty;
+            try
+            {
+                var isActive = _employeeService.ChangeEmployeeStatus(id, activation);
+                message = isActive ?
+                     "Employee is Activated Successfully"
+                 : "Employee is Deactivated Successfully";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex.StackTrace!.ToString());
+                if (_webHostEnvironment.IsDevelopment())
+                {
+                    message = $"An Error Occurred: {message}, Please Try Again Later";
+                }
+                message = $"An Error Occurred, Please Try Again Later";
+
+            }
+
+
+            TempData["Message"] = message;
+            return RedirectToAction(nameof(Index));
+        }
+
+        #endregion
+
     }
 }
 

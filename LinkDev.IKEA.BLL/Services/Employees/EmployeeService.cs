@@ -245,6 +245,20 @@ namespace LinkDev.IKEA.BLL.Services.Employees
             return _unitOfWork.Commit();
         }
 
+
+        public bool ChangeEmployeeStatus(int id, bool activation)
+        {
+            var employee = _unitOfWork.Employees.Get(id);
+            if (employee == null)
+                throw new Exception($"Employee with Id {id} does not exist.");
+
+            if (employee.IsActive == activation)
+                throw new Exception($"Employee with Id {id} is already {(activation ? "Active" : "inactive")} exist.");
+
+            employee.IsActive = activation;
+            return _unitOfWork.Commit() > 0;
+        }
+
         public bool DeleteEmployee(int employeeId)
         {
             _unitOfWork.Employees.Delete(employeeId);
@@ -300,6 +314,8 @@ namespace LinkDev.IKEA.BLL.Services.Employees
                     throw new Exception($"Salary must be greater that {minUpdatedSalary}.Because the Last Current Salary is {employeeBeforeUpdate.Salary} and The Salary you want to update to is {employeeDto.Salary} and it should to be greater than this at least 10%");
             }
         }
+
+
         #endregion
     }
 }
