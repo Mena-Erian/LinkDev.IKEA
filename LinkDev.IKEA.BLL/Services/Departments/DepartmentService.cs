@@ -54,7 +54,8 @@ namespace LinkDev.IKEA.BLL.Services.Departments
                                             department.CreatedBy,
                                             department.CreatedOn,
                                             department.LastModifiedBy,
-                                            department.LastModifiedOn
+                                            department.LastModifiedOn,
+                                            department.Manager?.FirstName
                                            );
         }
 
