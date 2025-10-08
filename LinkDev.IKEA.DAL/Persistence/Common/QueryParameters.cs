@@ -24,5 +24,16 @@ namespace LinkDev.IKEA.DAL.Persistence.Common
                 _pageSize = value;
             }
         }
+
+        private string? searchTerm;
+
+        public string? SearchTerm
+        {
+            get { return searchTerm; }
+            set { searchTerm = value?.ToLower(); }
+        }
+        public string? SortBy { get; set; }
+        public bool? SortAscending { get; set; }
+
     }
 }

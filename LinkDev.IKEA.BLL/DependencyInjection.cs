@@ -1,4 +1,5 @@
-﻿using LinkDev.IKEA.BLL.Services.Departments;
+﻿using LinkDev.IKEA.BLL.Mapping.Profiles;
+using LinkDev.IKEA.BLL.Services.Departments;
 using LinkDev.IKEA.BLL.Services.Employees;
 using LinkDev.IKEA.DAL.Contracts;
 using LinkDev.IKEA.DAL.Persistence.Data;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +24,12 @@ namespace LinkDev.IKEA.BLL
 
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+
+            //services.AddAutoMapper(m => m.AddProfile<EmployeeProfile>());
+            //services.AddAutoMapper(typeof(AssemblyInformation).Assembly);
+            //services.AddAutoMapper(typeof(EmployeeProfile));
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 
             return services;
         }

@@ -16,7 +16,8 @@ namespace LinkDev.IKEA.PL
 
             #region Configure Sevices
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            //builder.Services.AddControllersWithViews();
+
 
             /// builder.Services.AddScoped<DbContextOptions<ApplicationDbContext>>();
             /// builder.Services.AddScoped<ApplicationDbContext>();
@@ -45,6 +46,7 @@ namespace LinkDev.IKEA.PL
                 ServiceLifetime.Transient // Per Order
              */
 
+            builder.Services.AddWebServices();
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddApplicationServices(builder.Configuration);
             //builder.Services.AddScoped<IDepartmentService, DepartmentService>();
