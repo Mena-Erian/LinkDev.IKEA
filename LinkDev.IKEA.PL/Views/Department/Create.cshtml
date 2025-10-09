@@ -1,6 +1,18 @@
 ﻿@model CreateDepartmentViewModel
 @{
 	ViewData["Title"] = "Create Department";
+	// _CreateEditPartialViewModel? _CreateEditPV;
+	// if (Model is not null)
+	// {
+	// 	_CreateEditPV = new _CreateEditPartialViewModel()
+	// 	{
+	// 		Code = Model.Code,
+	// 		Name = Model.Name,
+	// 		CreationDate = Model.CreationDate,
+	// 		Description = Model.Description
+	// 	};
+	// }
+
 }
 
 @* 
@@ -54,29 +66,22 @@
 								<i class="fas fa-hashtag text-primary me-2"></i>Department ID
 								<span class="text-danger">*</span>
 							</label>
-							<input type="number"
-								   class="form-control"
-								   asp-for="Id"
-								   placeholder="Enter department ID (e.g., 10)"
-								   required />
+							<input type="number" class="form-control" asp-for="Id" placeholder="Enter department ID (e.g., 10)" required />
 
 							<span class="form-text " asp-validation-for="Id">
 							</span>
 						</div>
 
+
+
 						<!-- Department Name -->
 						<div class="mb-4">
-							<label asp-for="Name"
-								   class="form-label fw-bold">
+							<label asp-for="Name" class="form-label fw-bold">
 								<i class="fas fa-building text-success me-2"></i>Department Name
 								<span class="text-danger">*</span>
 							</label>
-							<input type="text"
-								   class="form-control"
-								   asp-for="Name"
-								   placeholder="Enter department name (e.g., Information Technology)"
-								   required
-								   maxlength="100" />
+							<input type="text" class="form-control" asp-for="Name"
+								   placeholder="Enter department name (e.g., Information Technology)" required maxlength="100" />
 							<div class="invalid-feedback">
 								Department name is required and
 								must be between 2-100
@@ -88,35 +93,25 @@
 
 						<!-- Department Code -->
 						<div class="mb-4">
-							<label asp-for="Code"
-								   class="form-label fw-bold">
+							<label asp-for="Code" class="form-label fw-bold">
 								<i class="fas fa-barcode text-warning me-2"></i>Department Code
 								<span class="text-danger">*</span>
 							</label>
-							<input type="text"
-								   class="form-control text-uppercase"
-								   asp-for="Code"
-								   placeholder="Enter department code (e.g., IT-001)"
-								   required
-								   maxlength="20"
-								   pattern="[A-Z0-9\-]+" />
+							<input type="text" class="form-control text-uppercase" asp-for="Code"
+								   placeholder="Enter department code (e.g., IT-001)" required maxlength="20" pattern="[A-Z0-9\-]+" />
 							<span class="form-text " asp-validation-for="Code">
 							</span>
 						</div>
 
 						<!-- Department Description -->
 						<div class="mb-4">
-							<label asp-for="Description"
-								   class="form-label fw-bold">
+							<label asp-for="Description" class="form-label fw-bold">
 								<i class="fas fa-align-left text-info"></i>
 								Department Description
 								<span class="text-danger">*</span>
 							</label>
-							<input type="text"
-								   class="form-control"
-								   asp-for="Description"
-								   placeholder="Enter department Description (e.g., this Department for...)"
-								   minlength="10" />
+							<input type="text" class="form-control" asp-for="Description"
+								   placeholder="Enter department Description (e.g., this Department for...)" minlength="10" />
 							<div class="invalid-feedback">
 								Please provide a valid
 								department code (uppercase
@@ -130,8 +125,7 @@
 
 						<!-- Creation Date -->
 						<div class="mb-4">
-							<label asp-for="CreationDate"
-								   class="form-label fw-bold">
+							<label asp-for="CreationDate" class="form-label fw-bold">
 								<i class="fas fa-calendar-plus text-danger me-2"></i>Creation Date
 								<span class="text-danger">*</span>
 							</label>
@@ -139,14 +133,8 @@
 								<span class="input-group-text bg-light border-end-0">
 									<i class="fas fa-calendar text-muted"></i>
 								</span>
-								<input asp-for="CreationDate"
-									   type="datetime-local"
-									   class="form-control"
-									   id="creationDate"
-									   required />
-								<button class="btn btn-outline-secondary"
-										type="button"
-										id="setCurrentDate">
+								<input asp-for="CreationDate" type="datetime-local" class="form-control" id="creationDate" required />
+								<button class="btn btn-outline-secondary" type="button" id="setCurrentDate">
 									<i class="fas fa-clock me-2"></i>Now
 								</button>
 								<div class="invalid-feedback">
@@ -157,7 +145,6 @@
 							<span class="form-text " asp-validation-for="CreationDate">
 							</span>
 						</div>
-
 						<!-- Form Actions -->
 						<div class="row mt-4 pt-4 border-top">
 							<div class="col-12">
