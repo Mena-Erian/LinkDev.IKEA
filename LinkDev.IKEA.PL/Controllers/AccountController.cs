@@ -8,10 +8,11 @@ namespace LinkDev.IKEA.PL.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-
-        public AccountController(UserManager<ApplicationUser> userManager)
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
         #region Sign UP
         [HttpGet]
@@ -58,13 +59,53 @@ namespace LinkDev.IKEA.PL.Controllers
         #endregion
 
         #region Sign In
-
+        [HttpGet]
         public IActionResult SignIn()
         {
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SignIn(SignInViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+
+            if (user is null)
+            {
+                ModelState.AddModelError("", "Invalid login attempt");
+                return View(model);
+            }
+
+            // Check Password
+            var flag = await _userManager.CheckPasswordAsync(user, model.Password);
+            if (!flag)
+            {
+                ModelState.AddModelError("", "Invalid Password attempt");
+                return View(model);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+
+            if (result.IsNotAllowed)
+                ModelState.AddModelError("", "Your Account is not Confirmed yet!");
+            if (result.IsNotAllowed)
+                ModelState.AddModelError("", $"Your Account is Locked out {user.LockoutEnd}");
+            /// if (result.RequiresTwoFactor)
+            /// {
+            /// }
+
+            if (result.Succeeded)
+                return RedirectToAction(nameof(EmployeeController.Index));
+
+            return View(model);
+        }
+
         #endregion
+
+
 
     }
 }
