@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace LinkDev.IKEA.DAL.Persistence.Data
 {
-    public class ApplicationDbContext : IdentityDbContext/*IdentityDbContext<ApplicationUser, IdentityRole, string>*/
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>/*IdentityDbContext<ApplicationUser, IdentityRole, string>*/
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -22,7 +22,7 @@ namespace LinkDev.IKEA.DAL.Persistence.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);                                 
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 

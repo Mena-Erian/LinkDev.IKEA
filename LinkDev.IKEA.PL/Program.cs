@@ -79,7 +79,7 @@ namespace LinkDev.IKEA.PL
             //app.UseAuthorization();
             app.UseAuthorization();
 
-            //app.UseStaticFiles();
+            app.UseStaticFiles();
             app.MapStaticAssets();
 
 
