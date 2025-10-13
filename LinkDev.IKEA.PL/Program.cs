@@ -93,6 +93,11 @@ namespace LinkDev.IKEA.PL
             ///    pattern: "{controller=Department}/{action=Index}/{id?}")
             ///    .WithStaticAssets();
 
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+
             #endregion
 
             app.Run();

@@ -1,5 +1,6 @@
 ﻿using LinkDev.IKEA.DAL.Entities.Identity;
 using LinkDev.IKEA.DAL.Persistence.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 
@@ -36,6 +37,40 @@ namespace LinkDev.IKEA.PL
 
             })
                     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            /// services.AddAuthentication();
+            /// services.AddAuthentication("Cookies");
+            /// services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            ///     .AddCookie(options =>
+            ///     {
+            ///         options.LoginPath = "/Account/SignIn";
+            ///         options.AccessDeniedPath = "/Account/SignUp";
+            ///         options.LogoutPath = "/Account/LogOut";
+            ///         options.LoginPath = "/Account/SignIn";
+            ///         options.ExpireTimeSpan = TimeSpan.FromDays(15);
+            ///         options.SlidingExpiration = true;
+            ///     }); // Called internally in AddIdentity
+            /// 
+            /// services.AddAuthentication(options =>
+            /// {
+            ///     options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme; // Cookies
+            ///     options.DefaultChallengeScheme = "Beaer"; // JWT Bearer Token Authentication Scheme
+            ///     //options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            /// 
+            /// });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/SignIn";
+                options.AccessDeniedPath = "/Account/SignUp";
+                options.LogoutPath = "/Account/LogOut";
+                options.LoginPath = "/Account/SignIn";
+                options.ExpireTimeSpan = TimeSpan.FromDays(15);
+                options.SlidingExpiration = true;
+            });
+
+            //services.AddAuthorization();
+
 
             return services;
         }
