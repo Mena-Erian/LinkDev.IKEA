@@ -1,4 +1,6 @@
 ﻿using LinkDev.IKEA.DAL.Contracts;
+using LinkDev.IKEA.DAL.Entities.Identity;
+using Microsoft.AspNetCore.Identity;
 
 namespace LinkDev.IKEA.PL
 {
@@ -7,12 +9,17 @@ namespace LinkDev.IKEA.PL
         public static void InitializeDatabase(this IApplicationBuilder app)
         {
             using var scope = app.ApplicationServices.CreateScope();
-            
+
             var services = scope.ServiceProvider;
             var dbInitializer = services.GetRequiredService<IDbInitializer>(); // Ask Explicitly for the service
 
             dbInitializer.Initialize();
             dbInitializer.SeedData();
+
+           /// var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+           /// var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+           ///
+           /// dbInitializer.SeedUsersAsync(userManager, roleManager);
         }
     }
 }

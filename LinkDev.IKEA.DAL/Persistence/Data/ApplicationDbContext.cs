@@ -29,8 +29,8 @@ namespace LinkDev.IKEA.DAL.Persistence.Data
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
 
-        public DbSet<ApplicationUser> Users { get; set; }
-        public DbSet<IdentityRole> Roles { get; set; }
+        //public DbSet<ApplicationUser> Users { get; set; }
+        //public DbSet<IdentityRole> Roles { get; set; }
 
     }
 }

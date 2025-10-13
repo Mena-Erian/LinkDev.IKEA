@@ -1,0 +1,272 @@
+[
+  {
+    "FirstName": "Alice",
+    "LastName": "Johnson",
+    "UserName": "ajohnson",
+    "Email": "alice.johnson@example.com",
+    "IsAgree": true,
+    "Password": "P@ssw0rd1",
+    "Role": "Admin"
+  },
+  {
+    "FirstName": "Bob",
+    "LastName": "Smith",
+    "UserName": "bsmith",
+    "Email": "bob.smith@example.com",
+    "IsAgree": false,
+    "Password": "S!cret2W",
+    "Role": "Manager"
+  },
+  {
+    "FirstName": "Charlie",
+    "LastName": "Brown",
+    "UserName": "cbrown",
+    "Email": "charlie.brown@example.com",
+    "IsAgree": true,
+    "Password": "myPa$s3X",
+    "Role": "User"
+  },
+  {
+    "FirstName": "Dana",
+    "LastName": "White",
+    "UserName": "dwhite",
+    "Email": "dana.white@example.com",
+    "IsAgree": true,
+    "Password": "Wh!te4D",
+    "Role": "User"
+  },
+  {
+    "FirstName": "Ethan",
+    "LastName": "Miller",
+    "UserName": "emiller",
+    "Email": "ethan.miller@example.com",
+    "IsAgree": false,
+    "Password": "M!ller5E",
+    "Role": "Manager"
+  },
+  {
+    "FirstName": "Fiona",
+    "LastName": "Davis",
+    "UserName": "fdavis",
+    "Email": "fiona.davis@example.com",
+    "IsAgree": true,
+    "Password": "DaV!s6F",
+    "Role": "Admin"
+  },
+  {
+    "FirstName": "George",
+    "LastName": "Garcia",
+    "UserName": "ggarcia",
+    "Email": "george.garcia@example.com",
+    "IsAgree": true,
+    "Password": "GaRciA7!",
+    "Role": "User"
+  },
+  {
+    "FirstName": "Hannah",
+    "LastName": "Rodriguez",
+    "UserName": "hrodriguez",
+    "Email": "hannah.rodriguez@example.com",
+    "IsAgree": false,
+    "Password": "roDRiG8#",
+    "Role": "User"
+  },
+  {
+    "FirstName": "Isaac",
+    "LastName": "Martinez",
+    "UserName": "imartinez",
+    "Email": "isaac.martinez@example.com",
+    "IsAgree": true,
+    "Password": "MaRTi9nE$",
+    "Role": "Manager"
+  },
+  {
+    "FirstName": "Jasmine",
+    "LastName": "Hernandez",
+    "UserName": "jhernandez",
+    "Email": "jasmine.hernandez@example.com",
+    "IsAgree": true,
+    "Password": "hErNAn0%",
+    "Role": "Admin"
+  },
+  {
+    "FirstName": "Kevin",
+    "LastName": "Lopez",
+    "UserName": "klopez",
+    "Email": "kevin.lopez@example.com",
+    "IsAgree": false,
+    "Password": "LOpEz1&",
+    "Role": "User"
+  },
+  {
+    "FirstName": "Laura",
+    "LastName": "Gonzalez",
+    "UserName": "lgonzalez",
+    "Email": "laura.gonzalez@example.com",
+    "IsAgree": true,
+    "Password": "gONzAL2*",
+    "Role": "User"
+  },
+  {
+    "FirstName": "Michael",
+    "LastName": "Wilson",
+    "UserName": "mwilson",
+    "Email": "michael.wilson@example.com",
+    "IsAgree": true,
+    "Password": "WiLsON3(",
+    "Role": "Manager"
+  },
+  {
+    "FirstName": "Nina",
+    "LastName": "Anderson",
+    "UserName": "nanderson",
+    "Email": "nina.anderson@example.com",
+    "IsAgree": false,
+    "Password": "ANdEr4S)",
+    "Role": "Admin"
+  },
+  {
+    "FirstName": "Oscar",
+    "LastName": "Thomas",
+    "UserName": "othomas",
+    "Email": "oscar.thomas@example.com",
+    "IsAgree": true,
+    "Password": "ThOmAS5+",
+    "Role": "User"
+  },
+  {
+    "FirstName": "Pamela",
+    "LastName": "Taylor",
+    "UserName": "ptaylor",
+    "Email": "pamela.taylor@example.com",
+    "IsAgree": true,
+    "Password": "tAYlOR6=",
+    "Role": "User"
+  },
+  {
+    "FirstName": "Quentin",
+    "LastName": "Moore",
+    "UserName": "qmoore",
+    "Email": "quentin.moore@example.com",
+    "IsAgree": false,
+    "Password": "MoOrE7^",
+    "Role": "Manager"
+  },
+  {
+    "FirstName": "Rachel",
+    "LastName": "Jackson",
+    "UserName": "rjackson",
+    "Email": "rachel.jackson@example.com",
+    "IsAgree": true,
+    "Password": "JaCkSoN8~",
+    "Role": "Admin"
+  },
+  {
+    "FirstName": "Samuel",
+    "LastName": "Martin",
+    "UserName": "smartin",
+    "Email": "samuel.martin@example.com",
+    "IsAgree": true,
+    "Password": "mArTiN9<",
+    "Role": "User"
+  },
+  {
+    "FirstName": "Tina",
+    "LastName": "Lee",
+    "UserName": "tlee",
+    "Email": "tina.lee@example.com",
+    "IsAgree": false,
+    "Password": "lEe0@T",
+    "Role": "User"
+  },
+  {
+    "FirstName": "Ulysses",
+    "LastName": "Perez",
+    "UserName": "uperez",
+    "Email": "ulysses.perez@example.com",
+    "IsAgree": true,
+    "Password": "pEReZ1#u",
+    "Role": "Manager"
+  },
+  {
+    "FirstName": "Violet",
+    "LastName": "Hall",
+    "UserName": "vhall",
+    "Email": "violet.hall@example.com",
+    "IsAgree": true,
+    "Password": "hALL2$V",
+    "Role": "Admin"
+  },
+  {
+    "FirstName": "William",
+    "LastName": "Young",
+    "UserName": "wyoung",
+    "Email": "william.young@example.com",
+    "IsAgree": false,
+    "Password": "yOUng3%w",
+    "Role": "User"
+  },
+  {
+    "FirstName": "Xenia",
+    "LastName": "Allen",
+    "UserName": "xallen",
+    "Email": "xenia.allen@example.com",
+    "IsAgree": true,
+    "Password": "aLLEn4^X",
+    "Role": "User"
+  },
+  {
+    "FirstName": "Yusuf",
+    "LastName": "Sanchez",
+    "UserName": "ysanchez",
+    "Email": "yusuf.sanchez@example.com",
+    "IsAgree": true,
+    "Password": "sANCh5&Y",
+    "Role": "Manager"
+  },
+  {
+    "FirstName": "Zoe",
+    "LastName": "Wright",
+    "UserName": "zwright",
+    "Email": "zoe.wright@example.com",
+    "IsAgree": false,
+    "Password": "wRIgh6*Z",
+    "Role": "Admin"
+  },
+  {
+    "FirstName": "Adam",
+    "LastName": "King",
+    "UserName": "aking",
+    "Email": "adam.king@example.com",
+    "IsAgree": true,
+    "Password": "kING7(A",
+    "Role": "User"
+  },
+  {
+    "FirstName": "Bella",
+    "LastName": "Scott",
+    "UserName": "bscott",
+    "Email": "bella.scott@example.com",
+    "IsAgree": true,
+    "Password": "sCOtt8)B",
+    "Role": "User"
+  },
+  {
+    "FirstName": "Caleb",
+    "LastName": "Green",
+    "UserName": "cgreen",
+    "Email": "caleb.green@example.com",
+    "IsAgree": false,
+    "Password": "gREE9+C",
+    "Role": "Manager"
+  },
+  {
+    "FirstName": "Diana",
+    "LastName": "Baker",
+    "UserName": "dbaker",
+    "Email": "diana.baker@example.com",
+    "IsAgree": true,
+    "Password": "bAkER0=D",
+    "Role": "User"
+  }
+]

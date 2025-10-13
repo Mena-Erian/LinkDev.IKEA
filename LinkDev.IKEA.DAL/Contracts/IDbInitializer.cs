@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LinkDev.IKEA.DAL.Entities.Identity;
+using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +12,8 @@ namespace LinkDev.IKEA.DAL.Contracts
     {
         void Initialize();
         void SeedData();
+
+        Task SeedUsersAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager);
+
     }
 }
