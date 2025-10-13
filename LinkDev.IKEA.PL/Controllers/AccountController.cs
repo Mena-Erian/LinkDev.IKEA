@@ -1,4 +1,5 @@
-﻿using LinkDev.IKEA.DAL.Common.Entities;
+﻿using LinkDev.IKEA.BLL.Services.EmailSenders;
+using LinkDev.IKEA.DAL.Common.Entities;
 using LinkDev.IKEA.DAL.Entities.Identity;
 using LinkDev.IKEA.PL.ViewModels.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -10,10 +11,13 @@ namespace LinkDev.IKEA.PL.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        private readonly IEmailSender _emailSender;
+
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailSender = emailSender;
         }
         #region Sign UP
         [HttpGet]
@@ -29,6 +33,7 @@ namespace LinkDev.IKEA.PL.Controllers
                 return View(model);
 
             ApplicationUser? user = await _userManager.FindByNameAsync(model.UserName);
+
 
             if (user is not null)
             {
@@ -168,7 +173,7 @@ namespace LinkDev.IKEA.PL.Controllers
                 var user = _userManager.FindByEmailAsync(model.Email).Result;
                 if (user is not null)
                 {
-                    var token = _userManager.GeneratePasswordResetTokenAsync(user).Result;
+                    var token = _userManager.GeneratePasswordResetTokenAsync(user).GetAwaiter().GetResult();
                     var url = Url.Action(nameof(ForgetPassword), "Account",
                                          new
                                          {
@@ -183,15 +188,24 @@ namespace LinkDev.IKEA.PL.Controllers
                         Subject = "Reset Your Password",
                         //BaseUrl/Account/ResetPassword?Email=Mina@gmail.com
                         //Body = //Url ==> Reset Password [Form] => {New Password, ConfirmNewPassword}
-
                         Body = url
                     };
+                    // Send Email
 
+                    _emailSender.SendEmail(email);
+                    return RedirectToAction(nameof(CheckYourInbox));
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid Opeartion Please Try Again");
                 }
             }
-            return View();
+
+            return View(model);
         }
 
+        [HttpGet]
+        public IActionResult CheckYourInbox() => View();
         #endregion
 
     }
