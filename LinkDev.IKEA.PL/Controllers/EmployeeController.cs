@@ -6,12 +6,16 @@ using LinkDev.IKEA.DAL.Entities.Departments;
 using LinkDev.IKEA.DAL.Entities.Employees;
 using LinkDev.IKEA.DAL.Persistence.Common;
 using LinkDev.IKEA.PL.ViewModels.Employees;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LinkDev.IKEA.PL.Controllers
 {
+    //[AllowAnonymous] // Allow anonymous access to this controller
+    //[Authorize] // Should be Authenticated but without any security roles, just make login
+    [Authorize(Roles = "Admin")]
     public class EmployeeController : Controller
     {
         #region Services
@@ -126,11 +130,15 @@ namespace LinkDev.IKEA.PL.Controllers
         #endregion
 
         #region Create
+
+        //[Authorize(Roles = "Admin,Manager")]
         [HttpGet] // GET: Employee/Create
         public IActionResult Create()
             => View(new EmployeeCreateViewModel() { HiringDate = DateOnly.FromDateTime(DateTime.Now) });
 
+
         [HttpPost] // POST: /Employee/Create
+        //[Authorize(Roles = "Admin,Manager")]
         public IActionResult Create(EmployeeCreateViewModel model)
         {
             if (!ModelState.IsValid) return View(model);

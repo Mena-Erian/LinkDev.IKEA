@@ -1,0 +1,38 @@
+﻿@using LinkDev.IKEA.PL.ViewModels.Identity
+@model SignInViewModel
+@{
+	ViewData["Title"] = "SignIn";
+	Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+
+<div class="main-agileinfo">
+	<div class="agileits-top">
+		<form asp-action="SignIn" method="post" asp-controller="Account">
+			<div asp-validation-summary="ModelOnly"></div>
+			<br />
+
+			<input asp-for="Email" placeholder="Email" required="">
+			<span asp-validation-for="Email"></span>
+			<br />
+			<input asp-for="Password" placeholder="Password" required="">
+			<span asp-validation-for="Password"></span>
+			<br />
+
+			<div class="wthree-text">
+				<label class="anim">
+					<input asp-for="RememberMe" class="checkbox" required="">
+					<span>Remember Me</span>
+				</label>
+				<div class="clear"> </div>
+			</div>
+
+			<button href="SignIn" asp-action="SignIn" class="btn btn-success" type="submit">SIGNIN</button>
+		</form>
+		<p>Don you not have an Account? <a asp-action="SignUp"> Sign Up Now!</a></p>
+	</div>
+</div>
+
+@section Validation {
+	<partial name="_ValidationScriptsPartial" />
+}
