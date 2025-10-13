@@ -30,8 +30,8 @@ namespace LinkDev.IKEA.PL
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5; // Max number for trying to login with wrong password
 
-                options.SignIn.RequireConfirmedAccount = true;
-                options.SignIn.RequireConfirmedPhoneNumber = true;
+                //options.SignIn.RequireConfirmedAccount = true;
+                //options.SignIn.RequireConfirmedPhoneNumber = true;
                 options.SignIn.RequireConfirmedEmail = true;
 
             })
