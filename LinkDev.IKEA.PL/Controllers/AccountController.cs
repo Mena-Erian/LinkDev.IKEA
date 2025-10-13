@@ -1,4 +1,5 @@
-﻿using LinkDev.IKEA.DAL.Entities.Identity;
+﻿using LinkDev.IKEA.DAL.Common.Entities;
+using LinkDev.IKEA.DAL.Entities.Identity;
 using LinkDev.IKEA.PL.ViewModels.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -149,6 +150,47 @@ namespace LinkDev.IKEA.PL.Controllers
             return RedirectToAction(nameof(SignIn));
         }
 
+        #endregion
+
+        #region Forget Password
+
+        [HttpGet]
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SendResetPasswordUrl(ForgetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _userManager.FindByEmailAsync(model.Email).Result;
+                if (user is not null)
+                {
+                    var token = _userManager.GeneratePasswordResetTokenAsync(user).Result;
+                    var url = Url.Action(nameof(ForgetPassword), "Account",
+                                         new
+                                         {
+                                             model.Email,
+                                             Token = token
+                                         },
+                                         Request.Scheme);
+
+                    var email = new Email()
+                    {
+                        To = model.Email,
+                        Subject = "Reset Your Password",
+                        //BaseUrl/Account/ResetPassword?Email=Mina@gmail.com
+                        //Body = //Url ==> Reset Password [Form] => {New Password, ConfirmNewPassword}
+
+                        Body = url
+                    };
+
+                }
+            }
+            return View();
+        }
 
         #endregion
 
