@@ -4,13 +4,14 @@ using LinkDev.IKEA.DAL;
 using LinkDev.IKEA.DAL.Contracts;
 using LinkDev.IKEA.DAL.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace LinkDev.IKEA.PL
 {
     public class Program
     {
         // Entry Point for the application.
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -56,8 +57,8 @@ namespace LinkDev.IKEA.PL
 
             #region Database Initialization
 
-            app.InitializeDatabase();
-
+            await app.InitializeDatabaseAsync();
+            
             #endregion
 
             #region Configure Http Request Pipelines
@@ -77,7 +78,7 @@ namespace LinkDev.IKEA.PL
             app.UseRouting();
 
             //app.UseAuthorization();
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseStaticFiles();
             app.MapStaticAssets();

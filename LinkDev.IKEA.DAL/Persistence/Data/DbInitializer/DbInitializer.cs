@@ -78,8 +78,8 @@ namespace LinkDev.IKEA.DAL.Persistence.Data.DbInitializer
 
             if (!_dbContext.Users.Any())
             {
-                var usersData = File.ReadAllText("../LinkDev.IKEA.DAL/Persistence/Data/Seeds/Users.json");
-                var users = JsonSerializer.Deserialize<List<TempSeedingApplicationUser>>(usersData);
+                var usersData = await File.ReadAllTextAsync("../LinkDev.IKEA.DAL/Persistence/Data/Seeds/Users.json");
+                var users = JsonSerializer.Deserialize<List<TempSeedingApplicationUser>>(usersData ?? "");
 
 
                 if (users?.Count > 0)
@@ -90,11 +90,13 @@ namespace LinkDev.IKEA.DAL.Persistence.Data.DbInitializer
                         {
                             FirstName = item.FirstName,
                             LastName = item.LastName,
+                            UserName = item.UserName,
                             Email = item.Email,
                             IsAgree = item.IsAgree,
+                            EmailConfirmed = true
                         };
                         var result = await userManager.CreateAsync(user, item.Password);
-
+                        
                         if (result.Succeeded)
                         {
                             await userManager.AddToRoleAsync(user, item.Role);
