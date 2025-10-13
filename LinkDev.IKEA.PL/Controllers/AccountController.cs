@@ -92,7 +92,7 @@ namespace LinkDev.IKEA.PL.Controllers
                     /// }
 
                     if (result.Succeeded)
-                        return RedirectToAction("Index","Home");
+                        return RedirectToAction("Index", "Home");
 
                 }
             }
@@ -139,7 +139,18 @@ namespace LinkDev.IKEA.PL.Controllers
         /// }
         #endregion
 
+        #region Sign Out
 
+        [HttpGet]
+        public new async Task<IActionResult> SignOut()
+        {
+            //base.SignOut();
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(SignIn));
+        }
+
+
+        #endregion
 
     }
 }

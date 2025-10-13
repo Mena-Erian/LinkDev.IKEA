@@ -77,8 +77,9 @@ namespace LinkDev.IKEA.PL
             app.UseHttpsRedirection();
             app.UseRouting();
 
-            //app.UseAuthorization();
-            //app.UseAuthorization();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseStaticFiles();
             app.MapStaticAssets();
@@ -93,12 +94,7 @@ namespace LinkDev.IKEA.PL
             ///    name: "default",
             ///    pattern: "{controller=Department}/{action=Index}/{id?}")
             ///    .WithStaticAssets();
-
-
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-
+ 
             #endregion
 
             app.Run();

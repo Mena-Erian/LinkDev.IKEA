@@ -15,7 +15,7 @@ namespace LinkDev.IKEA.PL.Controllers
 {
     //[AllowAnonymous] // Allow anonymous access to this controller
     //[Authorize] // Should be Authenticated but without any security roles, just make login
-    [Authorize(Roles = "Admin,Manager")]
+    [Authorize(Roles = "Admin")]
     public class EmployeeController : Controller
     {
         #region Services
