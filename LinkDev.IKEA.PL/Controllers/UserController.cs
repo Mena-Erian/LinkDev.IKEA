@@ -93,6 +93,7 @@ namespace LinkDev.IKEA.PL.Controllers
             TempData["UserId"] = userViewModel.Id;
             return View(userViewModel);
         }
+
         [HttpPost]
         public IActionResult Edit(UserEditViewModel model)
         {
@@ -145,6 +146,51 @@ namespace LinkDev.IKEA.PL.Controllers
             return View(model);
 
         }
+
+        #endregion
+
+        #region Delete
+
+        [HttpPost]
+        public IActionResult Delete(string id)
+        {
+
+            string message = "User Deleted Successfully";
+            try
+            {
+                var user = _userManager.FindByIdAsync(id).Result;
+
+                if (user is null)
+                    throw new Exception("User not found by Id");
+
+                var result = _userManager.DeleteAsync(user).Result;
+
+                if (!result.Succeeded)
+                {
+                    message = "User Can Not Be Deleted";
+                    throw new Exception(message);
+                }
+
+                TempData["Message"] = message;
+            }
+            catch (Exception ex)
+            {
+                if (_webHostEnvironment.IsDevelopment())
+                {
+                    message = ex.Message;
+                    TempData["Message"] = message;
+                    ModelState.AddModelError("", message);
+                }
+                else
+                {
+                    message = "Invalid Operation";
+                    TempData["Message"] = message;
+                    ModelState.AddModelError("", message);
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
 
         #endregion
 
