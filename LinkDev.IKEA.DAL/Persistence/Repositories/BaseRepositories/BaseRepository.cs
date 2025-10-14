@@ -19,7 +19,7 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories.BaseRepositories
             _dbSet = _dbContext.Set<TEntity>();
         }
 
-        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null, bool withTracking = false)
+        public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null, bool withTracking = false)
         {
             IQueryable<TEntity> query = _dbSet;
 
@@ -33,12 +33,12 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories.BaseRepositories
                 query = orderBy(query);
 
             if (withTracking)
-                return query.ToList();
+                return await query.ToListAsync();
 
-            return query.AsNoTracking().ToList();
+            return await query.AsNoTracking().ToListAsync();
         }
 
-        public virtual PaginatedResult<TEntity> GetAll(QueryParameters queryParameters, Expression<Func<TEntity, bool>>? filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null, bool withTracking = false)
+        public virtual async Task<PaginatedResult<TEntity>> GetAllAsync(QueryParameters queryParameters, Expression<Func<TEntity, bool>>? filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null, bool withTracking = false)
         {
             IQueryable<TEntity> query = _dbSet;
 
@@ -68,7 +68,7 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories.BaseRepositories
             if (withTracking)
                 query.ToList();
 
-            query.AsNoTracking().ToList();
+            await query.AsNoTracking().ToListAsync();
 
             return new PaginatedResult<TEntity>()
             {
@@ -79,7 +79,7 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories.BaseRepositories
             };
         }
 
-        public TEntity? Get(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null)
+        public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null)
         {
             IQueryable<TEntity> query = _dbSet;
 
@@ -88,15 +88,21 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories.BaseRepositories
 
             query = query.Where(filter);
 
-            return query.FirstOrDefault();
+            return await query.FirstOrDefaultAsync();
         }
 
-        public IEnumerable<TEntity> GetAll(bool withTracking = false)
+        //public async Task<IEnumerable<TEntity>> GetAll(bool withTracking = false)
+        //{
+        //    if (withTracking) return _dbSet;
+        //    return await _dbSet.AsNoTracking().ToListAsync();
+        //}
+
+        public IQueryable<TEntity> GetAll(bool withTracking = false)
         {
             if (withTracking) return _dbSet;
             return _dbSet.AsNoTracking();
         }
-        public TEntity? Get(int id) => _dbSet.Find(id);
+        public async Task<TEntity?> GetByIdAsync(int id) => await _dbSet.FindAsync(id);
 
         public void Add(TEntity entity) => _dbSet.Add(entity);
 
@@ -119,5 +125,6 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories.BaseRepositories
                 _dbSet.Remove(entity);
         }
         public bool Exists(Expression<Func<TEntity, bool>> filter) => _dbSet.Any(filter);
+ 
     }
 }

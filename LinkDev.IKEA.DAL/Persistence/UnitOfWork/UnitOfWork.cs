@@ -28,10 +28,7 @@ namespace LinkDev.IKEA.DAL.Persistence.UnitOfWork
         public IDepartmentRepository Departments => _departmentRepository.Value;
         public IEmployeeRepository Employees => _employeeRepository.Value;
 
-        public int Commit()
-        {
-            return _dbContext.SaveChanges();
-        }
+        public async Task<int> CommitAsync() => await _dbContext.SaveChangesAsync();
 
         public void Dispose()
         {

@@ -1,4 +1,5 @@
-﻿using LinkDev.IKEA.DAL.Entities.Identity;
+﻿using LinkDev.IKEA.BLL.Services.EmailSenders;
+using LinkDev.IKEA.DAL.Entities.Identity;
 using LinkDev.IKEA.DAL.Persistence.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -33,10 +34,11 @@ namespace LinkDev.IKEA.PL
 
                 //options.SignIn.RequireConfirmedAccount = true;
                 //options.SignIn.RequireConfirmedPhoneNumber = true;
-                options.SignIn.RequireConfirmedEmail = true;
+                options.SignIn.RequireConfirmedEmail = false;
 
             })
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
             /// services.AddAuthentication();
             /// services.AddAuthentication("Cookies");
@@ -69,8 +71,7 @@ namespace LinkDev.IKEA.PL
                 options.SlidingExpiration = true;
             });
 
-            //services.AddAuthorization();
-
+            services.AddScoped<IEmailSender, EmailSender>();
 
             return services;
         }

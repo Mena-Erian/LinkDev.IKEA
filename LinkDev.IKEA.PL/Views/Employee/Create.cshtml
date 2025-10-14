@@ -6,7 +6,7 @@
 	ViewData["Title"] = "Create";
 
 
-	var departments = _departmentService.GetDepartments();
+	var departments = await _departmentService.GetDepartmentsAsync();
 	Model.Departments = new SelectList(departments, nameof(Department.Id), nameof(Department.Name));
 	/// Model.Departments = departments.Select(d => new SelectListItem()
 	/// {

@@ -11,9 +11,18 @@
 
 			@if (User.IsInRole("Admin"))
 			{
-				<span class="nav-link text-success mx-2">
-					Role:	Admin
+				<span class="nav-link text-success d-flex justify-content-between g-2 ">
+					<span class=" text-warning mx-2">
+						<a class=" text-warning" asp-controller="User" asp-action="Index">Users</a>
+					</span>
+					<span class=" text-warning mx-2">
+						<a class=" text-danger" asp-controller="Role" asp-action="Index">Roles</a>
+					</span>
+					<span class=" text-success mx-2">
+						Role:	Admin
+					</span>
 				</span>
+
 			}
 			@if (User.IsInRole("Manager"))
 			{

@@ -10,6 +10,7 @@ using LinkDev.IKEA.DAL.Persistence.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using System.Net;
+using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace LinkDev.IKEA.BLL.Services.Employees
@@ -25,7 +26,7 @@ namespace LinkDev.IKEA.BLL.Services.Employees
             _unitOfWork = unitOfWork;
         }
 
-        public int CreateEmployee(CreateEmployeeDto employeeDto)
+        public async Task<int> CreateEmployeeAsync(CreateEmployeeDto employeeDto)
         {
             ValidateEmployeeCreateBusinessRules(employeeDto);
 
@@ -56,12 +57,12 @@ namespace LinkDev.IKEA.BLL.Services.Employees
                 _unitOfWork.Employees.Add(employee);
             }
 
-            return _unitOfWork.Commit();
+            return await _unitOfWork.CommitAsync();
         }
 
-        public EmployeeDto? GetEmployeeById(int employeeId)
+        public async Task<EmployeeDto?> GetEmployeeByIdAsync(int employeeId)
         {
-            var employee = _unitOfWork.Employees.Get(employeeId);
+            var employee = await _unitOfWork.Employees.GetByIdAsync(employeeId);
 
             if (employee is null) return null;
 
@@ -94,9 +95,9 @@ namespace LinkDev.IKEA.BLL.Services.Employees
             return employeeDto;
         }
 
-        public EmployeeDetailsDto? GetEmployeeDetailsById(int employeeId)
+        public async Task<EmployeeDetailsDto?> GetEmployeeDetailsByIdAsync(int employeeId)
         {
-            var employee = _unitOfWork.Employees.Get(
+            var employee = await _unitOfWork.Employees.GetAsync(
                     filter: e => e.Id == employeeId,
                     includes: e => e.Include(e => e.Department)
                 );
@@ -151,9 +152,9 @@ namespace LinkDev.IKEA.BLL.Services.Employees
             return new EmployeeDetailsDto(employeeDto, departmentDetailsDto, 3);
         }
 
-        public IEnumerable<EmployeeDto> GetEmployees()
+        public async Task<IEnumerable<EmployeeDto>> GetEmployeesAsync()
         {
-            var employees = _unitOfWork.Employees.GetAll(true);
+            var employees = await _unitOfWork.Employees.GetAll(true).ToListAsync();
 
             List<EmployeeDto> employeesDto = new List<EmployeeDto>();
 
@@ -185,10 +186,10 @@ namespace LinkDev.IKEA.BLL.Services.Employees
             return employeesDto;
         }
 
-        PaginatedResult<EmployeeDto> IEmployeeService.GetEmployees(QueryParameters queryParameters)
+        async Task<PaginatedResult<EmployeeDto>> IEmployeeService.GetEmployeesAsync(QueryParameters queryParameters)
         {
 
-            var employees = _unitOfWork.Employees.GetAll(
+            var employees = await _unitOfWork.Employees.GetAllAsync(
                 queryParameters: queryParameters
                 //includes: e => e.Include(nameof(Employee.Department)),
                 //filter: e => e.FirstName.ToLower().Contains(queryParameters.SearchTerm ?? "") ||
@@ -213,7 +214,7 @@ namespace LinkDev.IKEA.BLL.Services.Employees
             return paginatedResult;
         }
 
-        public int UpdateEmployee(UpdateEmployeeDto employeeDto)
+        public async Task<int> UpdateEmployeeAsync(UpdateEmployeeDto employeeDto)
         {
             ValidateEmployeeUpdateBusinessRules(employeeDto);
 
@@ -243,13 +244,13 @@ namespace LinkDev.IKEA.BLL.Services.Employees
             var employee = _mapper.Map<Employee>(employeeDto);
             _unitOfWork.Employees.Update(employee);
 
-            return _unitOfWork.Commit();
+            return await _unitOfWork.CommitAsync();
         }
 
 
-        public bool ChangeEmployeeStatus(int id, bool activation)
+        public async Task<bool> ChangeEmployeeStatusAsync(int id, bool activation)
         {
-            var employee = _unitOfWork.Employees.Get(id);
+            var employee = await _unitOfWork.Employees.GetByIdAsync(id);
             if (employee == null)
                 throw new Exception($"Employee with Id {id} does not exist.");
 
@@ -257,13 +258,13 @@ namespace LinkDev.IKEA.BLL.Services.Employees
                 throw new Exception($"Employee with Id {id} is already {(activation ? "Active" : "inactive")} exist.");
 
             employee.IsActive = activation;
-            return _unitOfWork.Commit() > 0;
+            return await _unitOfWork.CommitAsync() > 0;
         }
 
-        public bool DeleteEmployee(int employeeId)
+        public async Task<bool> DeleteEmployeeAsync(int employeeId)
         {
             _unitOfWork.Employees.Delete(employeeId);
-            return _unitOfWork.Commit() > 0;
+            return await _unitOfWork.CommitAsync() > 0;
         }
 
         #region Helper Methods
@@ -271,7 +272,7 @@ namespace LinkDev.IKEA.BLL.Services.Employees
         {
             if (employee.DepartmentId.HasValue)
             {
-                var department = _unitOfWork.Departments.Get(employee.DepartmentId.Value);
+                var department = _unitOfWork.Departments.GetByIdAsync(employee.DepartmentId.Value);
 
                 if (department is null)
                     throw new Exception($"Department with Id {employee.DepartmentId.Value} does not exist.");
@@ -288,21 +289,21 @@ namespace LinkDev.IKEA.BLL.Services.Employees
             }
         }
 
-        private void ValidateEmployeeUpdateBusinessRules(UpdateEmployeeDto employeeDto)
+        private async Task ValidateEmployeeUpdateBusinessRules(UpdateEmployeeDto employeeDto)
         {
 
 
             if (employeeDto.DepartmentId.HasValue)
             {
 
-                var department = _unitOfWork.Departments.Get(employeeDto.DepartmentId.Value);
+                var department = await _unitOfWork.Departments.GetByIdAsync(employeeDto.DepartmentId.Value);
 
                 if (department is null)
                     throw new Exception($"Department with Id {employeeDto.DepartmentId.Value} does not exist.");
 
             }
 
-            var employeeBeforeUpdate = _unitOfWork.Employees.Get(employeeDto.Id);
+            var employeeBeforeUpdate = await _unitOfWork.Employees.GetByIdAsync(employeeDto.Id);
 
             if (employeeBeforeUpdate == null)
                 throw new Exception($"NOT Valid Id {employeeDto.Id}");

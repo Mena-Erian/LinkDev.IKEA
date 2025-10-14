@@ -1,4 +1,5 @@
-﻿@using LinkDev.IKEA.PL.ViewModels.Identity
+﻿@using LinkDev.IKEA.PL.Controllers
+@using LinkDev.IKEA.PL.ViewModels.Identity
 @model SignInViewModel
 @{
 	ViewData["Title"] = "SignIn";
@@ -29,7 +30,9 @@
 
 			<button href="SignIn" asp-action="SignIn" class="btn btn-success" type="submit">SIGNIN</button>
 		</form>
+
 		<p>Don you not have an Account? <a asp-action="SignUp"> Sign Up Now!</a></p>
+		<p class="mt-2">Forget Your Password? <a asp-action="@nameof(AccountController.ForgetPassword)">Reset your Password Now  </a></p>
 	</div>
 </div>
 

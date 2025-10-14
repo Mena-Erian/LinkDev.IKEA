@@ -13,7 +13,7 @@ namespace LinkDev.IKEA.DAL.Contracts
         public IDepartmentRepository Departments { get; }
         public IEmployeeRepository Employees { get; }
 
-        int Commit();
+        Task<int> CommitAsync();
         void Dispose();
     }
 }

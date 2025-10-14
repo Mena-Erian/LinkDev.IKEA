@@ -87,12 +87,12 @@ namespace LinkDev.IKEA.PL
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Home}/{action=Index}/{_id?}")
                 .WithStaticAssets();
 
             /// app.MapControllerRoute(
             ///    name: "default",
-            ///    pattern: "{controller=Department}/{action=Index}/{id?}")
+            ///    pattern: "{controller=Department}/{action=Index}/{_id?}")
             ///    .WithStaticAssets();
  
             #endregion

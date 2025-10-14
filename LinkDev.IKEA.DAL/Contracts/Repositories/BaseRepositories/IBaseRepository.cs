@@ -15,15 +15,15 @@ namespace LinkDev.IKEA.DAL.Contracts.Repositories.BaseRepositories
         where TEntity : BaseEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        IEnumerable<TEntity> GetAll(bool withTracking = false);
-        IEnumerable<TEntity> GetAll(
+        IQueryable<TEntity> GetAll(bool withTracking = false);
+        Task<IEnumerable<TEntity>> GetAllAsync(
             Expression<Func<TEntity, bool>> filter,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null,
             bool withTracking = false
             );
 
-         PaginatedResult<TEntity> GetAll(
+        Task<PaginatedResult<TEntity>> GetAllAsync(
                QueryParameters queryParameters,
                Expression<Func<TEntity, bool>>? filter = null,
                Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
@@ -31,9 +31,9 @@ namespace LinkDev.IKEA.DAL.Contracts.Repositories.BaseRepositories
                bool withTracking = false
                );
 
-        TEntity? Get(int id);
+        Task<TEntity?> GetByIdAsync(int id);
 
-        TEntity? Get(
+        Task<TEntity?> GetAsync(
             Expression<Func<TEntity, bool>> filter,
             Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null
             );

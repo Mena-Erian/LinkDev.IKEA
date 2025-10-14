@@ -9,14 +9,10 @@ namespace LinkDev.IKEA.BLL.Services.Departments
 {
     public interface IDepartmentService
     {
-        IEnumerable<DepartmentResponseDto> GetDepartments();
-
-        DepartmentDetailsDto? GetDepartmentsById(int departmentId);
-
-        int CreateDepartment(CreateDepartmentDto department);
-
-        int UpdateDepartment(UpdateDepartmentDto department);
-
-        bool DeleteDepartment(int departmentId);
+        Task<IEnumerable<DepartmentResponseDto>> GetDepartmentsAsync();
+        Task<DepartmentDetailsDto?> GetDepartmentsByIdAsync(int departmentId);
+        Task<int> CreateDepartmentAsync(CreateDepartmentDto department);
+        Task<int> UpdateDepartmentAsync(UpdateDepartmentDto department);
+        Task<bool> DeleteDepartmentAsync(int departmentId);
     }
 }

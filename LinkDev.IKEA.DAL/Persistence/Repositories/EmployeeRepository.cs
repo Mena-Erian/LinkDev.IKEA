@@ -17,7 +17,7 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories
     {
         public EmployeeRepository(ApplicationDbContext dbContext) : base(dbContext) { }
 
-        public PaginatedResult<Employee> GetAll(QueryParameters parameters)
+        public Task<PaginatedResult<Employee>> GetAllAsync(QueryParameters parameters)
         {
             Expression<Func<Employee, bool>>? filter = null;
 
@@ -61,7 +61,7 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories
             };
 
             bool withTracking = false;
-            return base.GetAll(parameters, filter, orderby, includes, withTracking);
+            return base.GetAllAsync(parameters, filter, orderby, includes, withTracking);
         }
     }
 
