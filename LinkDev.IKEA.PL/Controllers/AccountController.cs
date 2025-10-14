@@ -9,6 +9,7 @@ namespace LinkDev.IKEA.PL.Controllers
 {
     public class AccountController : Controller
     {
+        #region Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
@@ -18,7 +19,9 @@ namespace LinkDev.IKEA.PL.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
-        }
+        } 
+        #endregion
+
         #region Sign UP
         [HttpGet]
         public IActionResult SignUp()
@@ -239,6 +242,5 @@ namespace LinkDev.IKEA.PL.Controllers
             return View(resetPasswordViewModel);
         }
         #endregion
-
     }
 }
