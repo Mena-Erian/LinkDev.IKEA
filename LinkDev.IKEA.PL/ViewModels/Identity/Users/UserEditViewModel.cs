@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LinkDev.IKEA.PL.ViewModels.Identity
+namespace LinkDev.IKEA.PL.ViewModels.Identity.Users
 {
     public class UserEditViewModel
     {

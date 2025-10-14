@@ -1,7 +1,7 @@
 ﻿using LinkDev.IKEA.BLL.Services.EmailSenders;
 using LinkDev.IKEA.DAL.Common.Entities;
 using LinkDev.IKEA.DAL.Entities.Identity;
-using LinkDev.IKEA.PL.ViewModels.Identity;
+using LinkDev.IKEA.PL.ViewModels.Identity.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

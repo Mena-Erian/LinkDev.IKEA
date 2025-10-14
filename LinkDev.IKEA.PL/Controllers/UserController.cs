@@ -1,5 +1,6 @@
 ﻿using LinkDev.IKEA.DAL.Entities.Identity;
 using LinkDev.IKEA.PL.ViewModels.Identity;
+using LinkDev.IKEA.PL.ViewModels.Identity.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -8,9 +9,7 @@ namespace LinkDev.IKEA.PL.Controllers
 {
     public class UserController(UserManager<ApplicationUser> _userManager, IWebHostEnvironment _webHostEnvironment) : Controller
     {
-        // Services ---> Services [UserManager]
-        // Index , Details , Edit , Delete , [Create user -> register]
-        // 
+      
         #region Index
         [HttpGet]
         public IActionResult Index(string searchValue)
@@ -191,8 +190,7 @@ namespace LinkDev.IKEA.PL.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
         #endregion
-
+    
     }
 }
