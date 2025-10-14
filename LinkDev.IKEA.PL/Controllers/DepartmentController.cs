@@ -46,7 +46,7 @@ namespace LinkDev.IKEA.PL.Controllers
 
         #region Details
 
-        [HttpGet] // GET: /Department/Details/id
+        [HttpGet] // GET: /Department/Details/_id
         public IActionResult Details([FromRoute] int? id, string viewName = "Details")
         {
 
@@ -116,7 +116,7 @@ namespace LinkDev.IKEA.PL.Controllers
         #endregion
 
         #region Update
-        [HttpGet] // GET: /Department/Edit/id?
+        [HttpGet] // GET: /Department/Edit/_id?
         public IActionResult Edit(int? id)
         {
             if (!id.HasValue) return BadRequest(); // 400
@@ -181,13 +181,13 @@ namespace LinkDev.IKEA.PL.Controllers
         #endregion
 
         #region Delete
-        // [HttpGet] //Get: /Department/Delete/id
-        // public IActionResult Delete(int? id)
+        // [HttpGet] //Get: /Department/Delete/_id
+        // public IActionResult Delete(int? _id)
         // {
-        //     return RedirectToAction(nameof(Details), new { id, viewName = "Delete" });
+        //     return RedirectToAction(nameof(Details), new { _id, viewName = "Delete" });
         // }
 
-        [HttpPost] //Post: /Department/Delete/id
+        [HttpPost] //Post: /Department/Delete/_id
         public IActionResult Delete(int id)
         {
 

@@ -1,5 +1,4 @@
-﻿@using LinkDev.IKEA.PL.ViewModels.Identity
-@model IEnumerable<UserViewModel>
+﻿@model IEnumerable<UserViewModel>
 @{
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -77,5 +76,20 @@ else
 {
 	<div class="alert alert-info mt-3">
 		<h2>No Users Found !!</h2>
+	</div>
+}
+
+@if (!string.IsNullOrEmpty(TempData["Message"] as string))
+{
+	<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+		<div id="liveToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<strong class="me-auto">IKEA</strong>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+			<div class="toast-body">
+				@TempData["Message"]
+			</div>
+		</div>
 	</div>
 }

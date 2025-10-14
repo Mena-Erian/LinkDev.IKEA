@@ -217,7 +217,7 @@ namespace LinkDev.IKEA.PL.Controllers
             return View(viewModel);
         }
 
-        [HttpPost] // POST: /Employee/Edit/{id}
+        [HttpPost] // POST: /Employee/Edit/{_id}
         public IActionResult Edit([FromRoute] int id, EmployeeEditViewModel employeeModel)
         {
             if ((int?)TempData["Id"] != id)
@@ -269,7 +269,7 @@ namespace LinkDev.IKEA.PL.Controllers
         #endregion
 
         #region Delete
-        [HttpPost] // Post: /Employee/Delete/{id} 
+        [HttpPost] // Post: /Employee/Delete/{_id} 
         public IActionResult Delete(int id)
         {
             var message = "Employee Deleted Successfully";
