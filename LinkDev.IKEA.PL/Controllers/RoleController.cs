@@ -1,4 +1,5 @@
-﻿using LinkDev.IKEA.PL.ViewModels.Identity.Roles;
+﻿using LinkDev.IKEA.DAL.Persistence.Data;
+using LinkDev.IKEA.PL.ViewModels.Identity.Roles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -147,7 +148,7 @@ namespace LinkDev.IKEA.PL.Controllers
 
                 if (role.Name == "Admin")
                     throw new Exception("Can't Edit Or Change In Admin Name");
-                
+
 
                 role.Name = model.Name;
 

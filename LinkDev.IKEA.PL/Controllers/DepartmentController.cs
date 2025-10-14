@@ -3,6 +3,7 @@ using LinkDev.IKEA.BLL.Services.Departments;
 using LinkDev.IKEA.PL.ViewModels.Departments;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace LinkDev.IKEA.PL.Controllers
 {
@@ -30,9 +31,9 @@ namespace LinkDev.IKEA.PL.Controllers
 
         #region Index
         [HttpGet] // GET: /Department/Index
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var departments = _departmentService.GetDepartments();
+            var departments = await _departmentService.GetDepartmentsAsync();
 
             return View(departments.Select(d => new DepartmentViewModel()
             {
@@ -47,12 +48,12 @@ namespace LinkDev.IKEA.PL.Controllers
         #region Details
 
         [HttpGet] // GET: /Department/Details/_id
-        public IActionResult Details([FromRoute] int? id, string viewName = "Details")
+        public async Task<IActionResult> Details([FromRoute] int? id, string viewName = "Details")
         {
 
             if (!id.HasValue) return BadRequest(); //400
 
-            var department = _departmentService.GetDepartmentsById(id.Value);
+            var department = await _departmentService.GetDepartmentsByIdAsync(id.Value);
 
             if (department == null) return NotFound(); //404
 
@@ -85,7 +86,7 @@ namespace LinkDev.IKEA.PL.Controllers
         }
 
         [HttpPost] // POST: /Department/Create
-        public IActionResult Create(CreateDepartmentViewModel model)
+        public async Task<IActionResult> Create(CreateDepartmentViewModel model)
         {
             var message = string.Empty;
             try
@@ -96,7 +97,7 @@ namespace LinkDev.IKEA.PL.Controllers
                 message = $"{model.Name} Department Created Successfully";
 
                 var departmentToCreate = new CreateDepartmentDto(model.Code, model.Name, model.Description, DateOnly.FromDateTime(model.CreationDate));
-                var created = _departmentService.CreateDepartment(departmentToCreate) > 0;
+                var created =await _departmentService.CreateDepartmentAsync(departmentToCreate) > 0;
 
                 if (!created) message = "Failed to Create Department";
             }
@@ -117,11 +118,11 @@ namespace LinkDev.IKEA.PL.Controllers
 
         #region Update
         [HttpGet] // GET: /Department/Edit/_id?
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (!id.HasValue) return BadRequest(); // 400
 
-            var department = _departmentService.GetDepartmentsById(id.Value);
+            var department = await _departmentService.GetDepartmentsByIdAsync(id.Value);
             if (department is null) return BadRequest();
 
             var departmentViewModel = new UpdateDepartmentViewModel()
@@ -139,7 +140,7 @@ namespace LinkDev.IKEA.PL.Controllers
         }
 
         [HttpPost] // POST: /Department/Edit
-        public IActionResult Edit([FromRoute] int id, UpdateDepartmentViewModel model)
+        public async Task<IActionResult> Edit([FromRoute] int id, UpdateDepartmentViewModel model)
         {
 
             if ((int?)TempData["DepartmentUpdateId"] != id)
@@ -157,7 +158,7 @@ namespace LinkDev.IKEA.PL.Controllers
             {
                 var departmentToUpdate = new UpdateDepartmentDto(id, model.Name, model.Code, model.Description, model.CreationDate);
 
-                var IsUpdated = _departmentService.UpdateDepartment(departmentToUpdate) > 0;
+                var IsUpdated = await _departmentService.UpdateDepartmentAsync(departmentToUpdate) > 0;
                 if (!IsUpdated)
                     message = $"Failed to Update {model.Name} Department";
 
@@ -181,20 +182,20 @@ namespace LinkDev.IKEA.PL.Controllers
         #endregion
 
         #region Delete
-        // [HttpGet] //Get: /Department/Delete/_id
+        // [HttpGet] //GetByIdAsync: /Department/Delete/_id
         // public IActionResult Delete(int? _id)
         // {
         //     return RedirectToAction(nameof(Details), new { _id, viewName = "Delete" });
         // }
 
         [HttpPost] //Post: /Department/Delete/_id
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
 
             string message = string.Empty;
             try
             {
-                var IsDeleted = _departmentService.DeleteDepartment(id);
+                var IsDeleted = await _departmentService.DeleteDepartmentAsync(id);
                 if (!IsDeleted)
                     message = $"Failed to Deleted Department";
 

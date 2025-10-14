@@ -4,7 +4,7 @@
 @{
 	ViewData["Title"] = "Edit";
 
-	var departments = _departmentService.GetDepartments();
+	var departments = await _departmentService.GetDepartmentsAsync();
 	Model.Departments = new SelectList(departments, nameof(Department.Id), nameof(Department.Name));
 }
 

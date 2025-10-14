@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Threading.Tasks;
 
 namespace LinkDev.IKEA.PL.Controllers
 {
@@ -37,7 +38,7 @@ namespace LinkDev.IKEA.PL.Controllers
 
         #region Index
         [HttpGet] // GET: /EmployeeViewModel/Index
-        public IActionResult Index(
+        public async Task<IActionResult> Index(
             string searchTerm = "",
             string sortBy = "",
             bool sortAscending = true,
@@ -54,7 +55,7 @@ namespace LinkDev.IKEA.PL.Controllers
             };
 
 
-            var paginatedResult = _employeeService.GetEmployees(queryParameters);
+            var paginatedResult = await _employeeService.GetEmployeesAsync(queryParameters);
 
             var employeeViewModel = _mapper.Map<IEnumerable<EmployeeViewModel>>(paginatedResult.Data);
 
@@ -93,11 +94,11 @@ namespace LinkDev.IKEA.PL.Controllers
 
         #region Details
         [HttpGet] // GET: Employee/Details/{Id}
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (!id.HasValue) return BadRequest("Needs To Id");
 
-            var employeeDetails = _employeeService.GetEmployeeDetailsById(id.Value);
+            var employeeDetails = await _employeeService.GetEmployeeDetailsByIdAsync(id.Value);
 
             if (employeeDetails == null) return NotFound("Employee Id Not Found");
 
@@ -139,7 +140,7 @@ namespace LinkDev.IKEA.PL.Controllers
 
         [HttpPost] // POST: /Employee/Create
         //[Authorize(Roles = "Admin,Manager")]
-        public IActionResult Create(EmployeeCreateViewModel model)
+        public async Task<IActionResult> Create(EmployeeCreateViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
 
@@ -149,7 +150,7 @@ namespace LinkDev.IKEA.PL.Controllers
             {
                 var employee = _mapper.Map<CreateEmployeeDto>(model);
 
-                isCreated = _employeeService.CreateEmployee(employee
+                isCreated = await _employeeService.CreateEmployeeAsync(employee
                                                      /// new CreateEmployeeDto(
                                                      ///    model.Id,
                                                      ///    model.FirstName,
@@ -186,11 +187,11 @@ namespace LinkDev.IKEA.PL.Controllers
 
         #region Update
         [HttpGet] // GET: /Employee/Edit
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (!id.HasValue) return BadRequest();
 
-            var employee = _employeeService.GetEmployeeById(id.Value);
+            var employee = await _employeeService.GetEmployeeByIdAsync(id.Value);
 
             if (employee == null) return BadRequest();
 
@@ -218,7 +219,7 @@ namespace LinkDev.IKEA.PL.Controllers
         }
 
         [HttpPost] // POST: /Employee/Edit/{_id}
-        public IActionResult Edit([FromRoute] int id, EmployeeEditViewModel employeeModel)
+        public async Task<IActionResult> Edit([FromRoute] int id, EmployeeEditViewModel employeeModel)
         {
             if ((int?)TempData["Id"] != id)
             {
@@ -235,7 +236,7 @@ namespace LinkDev.IKEA.PL.Controllers
             try
             {
                 var updatedEmployee = _mapper.Map<UpdateEmployeeDto>(employeeModel);
-                var isUpdated = _employeeService.UpdateEmployee(updatedEmployee
+                var isUpdated = await _employeeService.UpdateEmployeeAsync(updatedEmployee
              ///  new UpdateEmployeeDto(
              ///  employeeModel.Id,
              ///  employeeModel.FirstName,
@@ -270,12 +271,12 @@ namespace LinkDev.IKEA.PL.Controllers
 
         #region Delete
         [HttpPost] // Post: /Employee/Delete/{_id} 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var message = "Employee Deleted Successfully";
             try
             {
-                if (!_employeeService.DeleteEmployee(id))
+                if (!await _employeeService.DeleteEmployeeAsync(id))
                 {
                     message = "Failed to Deleted Employee";
                 }
@@ -299,13 +300,13 @@ namespace LinkDev.IKEA.PL.Controllers
 
         #region Toggle Status
 
-        public IActionResult ToggleStatus(int id, bool activation)
+        public async Task<IActionResult> ToggleStatus(int id, bool activation)
         {
             string message = string.Empty;
             try
             {
-                var isActive = _employeeService.ChangeEmployeeStatus(id, activation);
-                message = isActive ?
+                var isActive =  await _employeeService.ChangeEmployeeStatusAsync(id, activation);
+                message =  isActive ?
                      "Employee is Activated Successfully"
                  : "Employee is Deactivated Successfully";
             }

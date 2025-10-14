@@ -10,20 +10,20 @@ namespace LinkDev.IKEA.BLL.Services.Employees
 {
     public interface IEmployeeService
     {
-        EmployeeDto? GetEmployeeById(int employeeId);
+        Task<EmployeeDto?> GetEmployeeByIdAsync(int employeeId);
 
-        EmployeeDetailsDto? GetEmployeeDetailsById(int employeeId);
+        Task<EmployeeDetailsDto?> GetEmployeeDetailsByIdAsync(int employeeId);
 
-        IEnumerable<EmployeeDto> GetEmployees();
+        Task<IEnumerable<EmployeeDto>> GetEmployeesAsync();
 
-        PaginatedResult<EmployeeDto> GetEmployees(QueryParameters queryParameters);
+        Task<PaginatedResult<EmployeeDto>> GetEmployeesAsync(QueryParameters queryParameters);
 
-        int CreateEmployee(CreateEmployeeDto employee);
+        Task<int> CreateEmployeeAsync(CreateEmployeeDto employee);
 
-        int UpdateEmployee(UpdateEmployeeDto employee);
+        Task<int> UpdateEmployeeAsync(UpdateEmployeeDto employee);
 
-        bool ChangeEmployeeStatus(int id, bool isActive);
+        Task<bool> ChangeEmployeeStatusAsync(int id, bool isActive);
 
-        bool DeleteEmployee(int employeeId);
+        Task<bool> DeleteEmployeeAsync(int employeeId);
     }
 }
